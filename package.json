@@ -1,0 +1,26 @@
+{
+  "name": "ranger",
+  "version": "0.0.1",
+  "description": "Range finder and plotter",
+  "main": "gulpfile.js",
+  "scripts": {
+    "gulp": "node_modules/.bin/gulp",
+    "build": "npm run gulp -- generate-service-worker",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdillon/ranger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "LICENSE",
+  "bugs": {
+    "url": "https://github.com/tdillon/ranger/issues"
+  },
+  "homepage": "https://github.com/tdillon/ranger#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "sw-precache": "^5.1.1"
+  }
+}
