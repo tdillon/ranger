@@ -12,3 +12,5 @@ gulp.task('generate-service-worker', function(callback) {
     stripPrefix: rootDir
   }, callback);
 });
+
+gulp.task('default', ['generate-service-worker']);
