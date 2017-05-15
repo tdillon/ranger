@@ -9,8 +9,7 @@ gulp.task('generate-service-worker', function(callback) {
 
   swPrecache.write(`${rootDir}/service-worker.js`, {
     staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}'],
-    stripPrefix: rootDir,
-    replacePrefix: 'ranger'
+    stripPrefix: rootDir
   }, callback);
 });
 
