@@ -11,17 +11,17 @@ export class AppComponent {
   title = 'Ranger';
   position:Position;
   count = 0;
+  accuracyClass = {accuracy1: (this.position && this.position.coords.accuracy < 100)};
 
   constructor(private locationService: LocationService) {
-    this.locationService.getLocation().subscribe(p => { ++this.count; this.position = p; });
-   }
+    this.locationService.getLocation().subscribe(p => { 
+      ++this.count;
+      this.position = p;
+    });
+  }
 
    getTime() {
      return new Date(this.position.timestamp);
    }
 
-   getString(s) {
-     console.log("getString", s);
-     return JSON.stringify(s);
-   }
 }

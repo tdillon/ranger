@@ -1,39 +1,33 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class LocationService {
-subject: Subject<Position>;
+    subject: BehaviorSubject<Position>;
 
-        constructor() {
-            this.subject = new Subject();
+    constructor() {
+        this.subject = new BehaviorSubject(undefined);
 
-            if ("geolocation" in navigator) {
-                console.log(new Date(),'geolocation is available');
-                navigator.geolocation.watchPosition(
-                    /*success*/
-                    (position : Position) => {
-                        this.subject.next(position)
-                    },
-                    /*error*/
-                    positionError => {
-                        console.log(new Date(),`error in watchPosition: (${positionError.code}) ${positionError.message}`);
-                    },
-                    /*options*/
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 20000,  /* 20 seconds */
-                        maximumAge: 5000  /* 5 seconds */
-                    }
-                );
-            } else {
-                console.log(new Date(), 'geolocation IS NOT available');
-            }
-
+        if ("geolocation" in navigator) {
+            console.log(new Date(), 'geolocation is available');
+            navigator.geolocation.watchPosition(
+                p => { this.subject.next(p); },
+                p => { console.log(new Date(), `error in watchPosition: (${p.code}) ${p.message}`) },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 20000,  /* 20 seconds */
+                    maximumAge: 5000  /* 5 seconds */
+                }
+            );
+        } else {
+            console.log(new Date(), 'geolocation IS NOT available');
         }
 
-        getLocation() {
-            return this.subject;
-        }
+    }
+
+    getLocation() {
+        return this.subject;
+    }
 
 }

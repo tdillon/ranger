@@ -1,0 +1,22 @@
+.accuracy1 {
+  background: #0f0;
+}
+
+.accuracy2 {
+  background: gold;
+}
+
+.accuracy3 {
+  background: orange;
+}
+
+.accuracy4 {
+  background: red;
+}
+
+.accuracy1,
+.accuracy2,
+.accuracy3,
+.accuracy4 {
+  color: white;
+}
