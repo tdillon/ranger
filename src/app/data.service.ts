@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as localForage from "localforage";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class DataService {
@@ -8,9 +9,14 @@ export class DataService {
   BASE = 'base';
   TARGETS = 'targets';
 
-  constructor() { }
+  base: BehaviorSubject<Coordinates>;
+
+  constructor() {
+    this.base = new BehaviorSubject(undefined);
+  }
 
   getBase(): Promise<Coordinates> {
+    // this.base.next()
     return localForage.getItem(this.BASE);
   }
 

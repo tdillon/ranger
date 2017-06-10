@@ -4,13 +4,13 @@ import { DataService } from "../data.service";
 import { LocationService } from "../location.service";
 
 @Component({
-  selector: 'app-set-base',
-  templateUrl: './set-base.component.html',
-  styleUrls: ['./set-base.component.css']
+  selector: 'app-base-setter',
+  templateUrl: './base-setter.component.html',
+  styleUrls: ['./base-setter.component.css']
 })
-export class SetBaseComponent implements OnInit {
+export class BaseSetterComponent implements OnInit {
+
   base :Coordinates;
-  base2:Position;
 
   constructor(private dataService: DataService, private locationService :LocationService) { }
 
@@ -23,8 +23,7 @@ export class SetBaseComponent implements OnInit {
   }
 
   setBase() {
-    this.base2 = this.locationService.getLocation().getValue();
-    console.log(this.base2);
+    this.dataService.setBase(this.locationService.getLocation().getValue().coords);
   }
 
 }
