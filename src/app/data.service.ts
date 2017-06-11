@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 
 import * as localForage from "localforage";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
+
+import { LatLong } from './lat-long'
 
 @Injectable()
 export class DataService {
@@ -9,23 +12,23 @@ export class DataService {
   BASE = 'base';
   TARGETS = 'targets';
 
-  base: BehaviorSubject<Coordinates>;
+  base: BehaviorSubject<LatLong>;
 
   constructor() {
     this.base = new BehaviorSubject(undefined);
+    localForage.getItem<Coordinates>(this.BASE).then(b => this.base.next(b));
   }
 
-  getBase(): Promise<Coordinates> {
-    // this.base.next()
-    return localForage.getItem(this.BASE);
+  getBase(): BehaviorSubject<LatLong> {
+     return this.base;
+  }
+
+  setBase(coords:LatLong) {
+    localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
   }
 
   getTargets(): Promise<Array<Coordinates>> {
     return localForage.getItem(this.TARGETS);
-  }
-
-  setBase(coords: Coordinates): Promise<Coordinates> {
-    return localForage.setItem(this.BASE, coords);
   }
 
   addTarget(coords: Coordinates): Promise<Array<Coordinates>> {

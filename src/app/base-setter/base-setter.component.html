@@ -1,5 +1,5 @@
 <div *ngIf="base">
-  {{base}}
+  {{base.latitude}}, {{base.longitude}}
 </div>
 <div *ngIf="!base">
   <input type="button" value="Set Base" (click)="setBase()">
