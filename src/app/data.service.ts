@@ -16,7 +16,7 @@ export class DataService {
 
   constructor() {
     this.base = new BehaviorSubject(undefined);
-    localForage.getItem<Coordinates>(this.BASE).then(b => this.base.next(b));
+    localForage.getItem<LatLong>(this.BASE).then(b => this.base.next(b));
   }
 
   getBase(): BehaviorSubject<LatLong> {
@@ -27,11 +27,11 @@ export class DataService {
     localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
   }
 
-  getTargets(): Promise<Array<Coordinates>> {
+  getTargets(): Promise<Array<LatLong>> {
     return localForage.getItem(this.TARGETS);
   }
 
-  addTarget(coords: Coordinates): Promise<Array<Coordinates>> {
+  addTarget(coords: LatLong): Promise<Array<LatLong>> {
     return this.getTargets().then(t => {
       t.push(coords);
       return localForage.setItem(this.TARGETS, t);

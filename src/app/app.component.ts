@@ -11,7 +11,6 @@ export class AppComponent {
   title = 'Ranger';
   position:Position;
   count = 0;
-  accuracyClass = {accuracy1: (this.position && this.position.coords.accuracy < 100)};
 
   constructor(private locationService: LocationService) {
     this.locationService.getLocation().subscribe(p => { 
