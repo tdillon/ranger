@@ -23,9 +23,9 @@ export class BaseSetterComponent implements OnInit {
     this.dataService.getBase().subscribe(b => this.base = b);
   }
 
-  setBase() {
-    let c = this.locationService.getLocation().getValue().coords;
-    this.dataService.setBase({latitude: c.latitude, longitude: c.longitude});
+  setBase(removeBase: boolean) {
+    let c = this.locationService.currentLocation.coords;
+    this.dataService.setBase(removeBase ? null : {latitude: c.latitude, longitude: c.longitude});
   }
 
 }

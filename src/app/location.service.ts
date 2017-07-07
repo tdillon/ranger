@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class LocationService {
     subject: BehaviorSubject<Position>;
+    observable: Observable<Position>;
 
     constructor() {
         this.subject = new BehaviorSubject(undefined);
+        this.observable = this.subject.asObservable();
 
         if ("geolocation" in navigator) {
             console.log(new Date(), 'geolocation is available');
@@ -26,7 +29,11 @@ export class LocationService {
     }
 
     getLocation() {
-        return this.subject;
+        return this.observable;
+    }
+
+    get currentLocation() {
+        return this.subject.getValue();
     }
 
 }

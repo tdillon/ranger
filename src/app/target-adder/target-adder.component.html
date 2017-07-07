@@ -1,3 +1,4 @@
-<p>
-  Distance from base: {{distance}} yards
-</p>
+<div *ngIf="distance >= 0">
+  <p>Distance from base: {{distance}} yards</p>
+  <input value=Add type=button (click)="addTarget()">
+</div>

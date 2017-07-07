@@ -1,4 +1,3 @@
-
 <app-gps-toggler></app-gps-toggler>
 <app-gps-accuracy></app-gps-accuracy>
 <app-gps-freshness></app-gps-freshness>
@@ -6,18 +5,3 @@
 <app-target-adder></app-target-adder>
 <app-plot-bar></app-plot-bar>
 <app-log-viewer></app-log-viewer>
-
-<h1>
-  {{title}}
-</h1>
-<ul *ngIf="position">
-  <li>last fix: {{getTime()}}</li>
-  <li>count: {{count}}</li>
-  <li>accuracy: {{position.coords.accuracy}} (meters)</li>
-  <li>altitude: {{position.coords.altitude}} (meters)</li>
-  <li>altitudeAccuracy: {{position.coords.altitudeAccuracy}} (meters)</li>
-  <li>heading: {{position.coords.heading}} (N:0 E:90 S:180 W:270)</li>
-  <li>latitude: {{position.coords.latitude}}</li>
-  <li>longitude: {{position.coords.longitude}}</li>
-  <li>speed: {{position.coords.speed}} (meters/sec)</li>
-</ul>

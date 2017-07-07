@@ -1,3 +1,5 @@
-<p>
-  plot-bar works!
-</p>
+<ul>
+  <li *ngFor="let t of targets">
+    ({{t.latitude}}, {{t.longitude}}) &mdash; {{t.distance}}
+  </li>
+</ul>
