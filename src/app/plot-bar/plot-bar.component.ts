@@ -12,7 +12,7 @@ export class PlotBarComponent implements OnInit {
 
   //private targets: Array<LatLong>;
   // private targets: Array<{latitude:number,longitude:number,distance?:number}>;
-  private targets: Array<LatLong | { distance: number }>;
+  targets: Array<LatLong | { distance: number }>;
 
   constructor(private dataService: DataService) { }
 
