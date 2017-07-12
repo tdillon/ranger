@@ -1,7 +1,16 @@
 <div *ngIf="base">
-  Base: {{base.latitude}}, {{base.longitude}}
-  <input type=button value=Remove (click)="setBase(true)">
+  <span title="Map pin icon, blue.  No action.">&nbsp;</span>
+  Base Set {{base.latitude}}, {{base.longitude}}
+  
+  <ng-container [ngSwitch]="showDelete">
+    <input *ngSwitchCase="false" title="Delete icon, dark gray.  Click moves to 'delete' mode." type=button value=X (click)="showDelete = true">
+    <ng-container *ngSwitchCase="true">
+      <input type=button value=Cancel (click)="showDelete = false">
+      <input type=button value=Delete (click)="setBase(true)">
+    </ng-container>
+  </ng-container>
 </div>
+
 <div *ngIf="!base">
   <input type="button" value="Set Base" (click)="setBase()">
 </div>

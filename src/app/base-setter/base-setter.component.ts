@@ -12,6 +12,7 @@ import { LatLong } from "../lat-long";
 export class BaseSetterComponent implements OnInit {
 
   base :LatLong;
+  showDelete = false;
 
   constructor(private dataService: DataService, private locationService :LocationService) { }
 

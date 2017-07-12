@@ -41,7 +41,7 @@ export class PlotBarComponent implements OnInit {
       Z = Math.sin(lat2) - Math.sin(lat1),
       C = Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2) + Math.pow(Z, 2)),
       D = R /*KM*/ * C * 1000 /*M/KM*/ / .9144 /*M/Y*/;
-    return D;  //YARDS
+    return Math.round(D);  //YARDS
   }
 
 }

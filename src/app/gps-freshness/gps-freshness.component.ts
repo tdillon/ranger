@@ -11,7 +11,7 @@ import { TickService } from "../tick.service";
 export class GpsFreshnessComponent implements OnInit {
 
   lastMS: number = Date.now();
-  secondsOld: number = -1;
+  secondsOld: number = Number.MAX_SAFE_INTEGER;
 
   constructor(private locationService: LocationService, private tickService: TickService) { }
 

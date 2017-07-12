@@ -1,0 +1,9 @@
+.fresh {
+    color: green;
+}
+.stale {
+    color: orange;
+}
+.rotten {
+    color: red;
+}
