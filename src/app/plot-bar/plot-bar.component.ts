@@ -1,31 +1,103 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { LatLong } from "../lat-long";
 import { DataService } from "../data.service";
+import { LocationService } from "../location.service";
 
 @Component({
   selector: 'app-plot-bar',
   templateUrl: './plot-bar.component.html',
   styleUrls: ['./plot-bar.component.css']
 })
-export class PlotBarComponent implements OnInit {
+export class PlotBarComponent implements AfterViewInit {
 
-  //private targets: Array<LatLong>;
-  // private targets: Array<{latitude:number,longitude:number,distance?:number}>;
-  targets: Array<LatLong | { distance: number }>;
+  targets: Array<LatLong & { distance: number }>;
 
-  constructor(private dataService: DataService) { }
+  @ViewChild('canvas') private canvasElementRef: ElementRef;
+  canvas: HTMLCanvasElement
+  ctx: CanvasRenderingContext2D;
 
-  ngOnInit() {
+  constructor(private dataService: DataService, private locationService: LocationService) { }
+
+  ngAfterViewInit() {
+    this.canvas = this.canvasElementRef.nativeElement;
+    this.ctx = this.canvas.getContext('2d');
+
     this.getData();
   }
 
   getData() {
+    this.locationService.getLocation().subscribe(l => {
+      this.draw();
+    });
+
     this.dataService.getTargets().subscribe(t => {
       this.targets = t.map(target => {
         return { ...target, distance: this.getDistance(target, this.dataService.currentBase) }
       });
+
+      this.draw();
     });
+  }
+
+  private draw() {
+    console.log('draw');
+    if (this.targets.length == 0) return;
+
+    let currentLocation;
+    let currentDistance;
+
+    let max:number = this.targets.reduce((a, b, c, d) => {
+      return (a > b.distance ? a : b.distance);
+    },  0);
+
+    if (this.locationService.currentLocation) {
+      currentLocation = this.locationService.currentLocation;
+      currentDistance = this.getDistance(new LatLong(currentLocation.coords), this.dataService.currentBase);
+    }
+
+    if (currentDistance > max) {
+      max = currentDistance ;
+    }
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'top';
+
+    //Main bar
+    this.ctx.strokeStyle = '1px solid #09c';
+    this.ctx.moveTo(0, Math.floor(this.canvas.height / 2) + .5);
+    this.ctx.lineTo(this.canvas.width, Math.floor(this.canvas.height / 2) + .5);
+    this.ctx.stroke();
+
+    const w = this.canvas.width;
+    const wr = w / max;
+
+    //Draw distance markers and text
+    this.ctx.fillStyle = 'black';
+    for (let i = 1; i <= Math.floor(max / 25); ++i) {
+      this.ctx.moveTo(Math.floor(wr * i * 25) + .5, this.canvas.height / 2 - 25);
+      this.ctx.lineTo(Math.floor(wr * i * 25) + .5, this.canvas.height / 2 + 25);
+      this.ctx.stroke();
+
+      this.ctx.fillText((i * 25).toString(),Math.floor(wr * i * 25) + .5, this.canvas.height / 2 + 25)
+    }
+
+
+    //Draw target 'dots'
+    this.ctx.fillStyle = 'red';
+    for (const t of this.targets) {
+      this.ctx.beginPath();
+      this.ctx.arc(t.distance * wr, this.canvas.height / 2 - 25, 5, 0, 2 * Math.PI);
+      this.ctx.fill();
+    }
+
+    //Draw current location
+    this.ctx.fillStyle = '#09c';
+    this.ctx.beginPath();
+    this.ctx.arc(currentDistance * wr, this.canvas.height / 2 - 25, 5, 0, 2 * Math.PI);
+    this.ctx.fill();
+
   }
 
   private getDistance(l1: LatLong, l2: LatLong) {

@@ -16,6 +16,7 @@ import { BaseSetterComponent } from './base-setter/base-setter.component';
 import { TargetAdderComponent } from './target-adder/target-adder.component';
 import { PlotBarComponent } from './plot-bar/plot-bar.component';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
+import { PlotBarSwitcherComponent } from './plot-bar-switcher/plot-bar-switcher.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { LogViewerComponent } from './log-viewer/log-viewer.component';
     BaseSetterComponent,
     TargetAdderComponent,
     PlotBarComponent,
-    LogViewerComponent
+    LogViewerComponent,
+    PlotBarSwitcherComponent
   ],
   imports: [
     BrowserModule,
