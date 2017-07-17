@@ -1,0 +1,6 @@
+<div (click)="toggleShowAdmin()">&#9881;</div>
+<div *ngIf="showAdmin">
+  <app-base-setter></app-base-setter>
+  <app-log-viewer></app-log-viewer>
+  <app-gps-toggler></app-gps-toggler>
+</div>

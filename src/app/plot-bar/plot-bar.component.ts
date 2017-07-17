@@ -66,6 +66,7 @@ export class PlotBarComponent implements AfterViewInit {
 
     //Main bar
     this.ctx.strokeStyle = '1px solid #09c';
+    this.ctx.beginPath();
     this.ctx.moveTo(0, Math.floor(this.canvas.height / 2) + .5);
     this.ctx.lineTo(this.canvas.width, Math.floor(this.canvas.height / 2) + .5);
     this.ctx.stroke();
@@ -97,6 +98,7 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.beginPath();
     this.ctx.arc(currentDistance * wr, this.canvas.height / 2 - 25, 5, 0, 2 * Math.PI);
     this.ctx.fill();
+    this.ctx.closePath();
 
   }
 
