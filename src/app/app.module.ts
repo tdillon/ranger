@@ -14,8 +14,11 @@ import { BaseSetterComponent } from './base-setter/base-setter.component';
 import { TargetAdderComponent } from './target-adder/target-adder.component';
 import { PlotBarComponent } from './plot-bar/plot-bar.component';
 import { LogViewerComponent } from './log-viewer/log-viewer.component';
-import { PlotBarSwitcherComponent } from './plot-bar-switcher/plot-bar-switcher.component';
 import { AdminComponent } from './admin/admin.component';
+import { DistanceDisplayComponent } from './distance-display/distance-display.component';
+import { BestAccuracySetterComponent } from './best-accuracy-setter/best-accuracy-setter.component';
+import { TargetListComponent } from './target-list/target-list.component';
+import { GPSDataComponent } from './gps-data/gps-data.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +28,11 @@ import { AdminComponent } from './admin/admin.component';
     TargetAdderComponent,
     PlotBarComponent,
     LogViewerComponent,
-    PlotBarSwitcherComponent,
-    AdminComponent
+    AdminComponent,
+    DistanceDisplayComponent,
+    BestAccuracySetterComponent,
+    TargetListComponent,
+    GPSDataComponent
   ],
   imports: [
     BrowserModule,

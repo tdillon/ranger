@@ -9,26 +9,5 @@ span {
 
 input {
     font-size: 4em;
-    color: #09c;
     width: 100%;
-}
-
-.best {
-    color: green;
-}
-.good {
-    color: orange;
-}
-.bad {
-    color: red;
-}
-
-.fresh {
-    color: green;
-}
-.stale {
-    color: orange;
-}
-.rotten {
-    color: red;
 }

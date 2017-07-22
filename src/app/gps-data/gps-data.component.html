@@ -1,0 +1,38 @@
+<div *ngIf="location">
+  <dl>
+    <dt>Seconds since fix</dt>
+    <dd>TODO</dd>
+  </dl>
+  <dl>
+    <dt>Last Fix</dt>
+    <dd>{{location.timestamp}}</dd>
+  </dl>
+  <dl>
+    <dt>Accuracy</dt>
+    <dd>{{location.coords.accuracy}}</dd>
+  </dl>
+  <dl>
+    <dt>Altitude</dt>
+    <dd>{{location.coords.altitude}}</dd>
+  </dl>
+  <dl>
+    <dt>Altitude Accuracy</dt>
+    <dd>{{location.coords.altitudeAccuracy}}</dd>
+  </dl>
+  <dl>
+    <dt>Heading</dt>
+    <dd>{{location.coords.heading}}</dd>
+  </dl>
+  <dl>
+    <dt>Latitude</dt>
+    <dd>{{location.coords.latitude}}</dd>
+  </dl>
+  <dl>
+    <dt>Longitude</dt>
+    <dd>{{location.coords.longitude}}</dd>
+  </dl>
+  <dl>
+    <dt>Speed</dt>
+    <dd>{{location.coords.speed}}</dd>
+  </dl>
+</div>

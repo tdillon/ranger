@@ -1,9 +1,5 @@
-<div *ngIf="distance >= 0">
-  <p><span>{{distance}}</span> yards</p>
-  <input
-    value="&#8982; Add"
-    type=button
-    (click)="addTarget()">
-</div>
-<span [ngClass]="{'fresh': secondsOld <= 1, 'stale': secondsOld  > 1 && secondsOld <= 2, 'rotten': secondsOld > 2}">&#9202;</span>
-<span [ngClass]="{'best': accuracy <= 3, 'good': accuracy  > 3 && accuracy <= 4, 'bad': accuracy > 4}">&#9678;</span>
+<input
+  [disabled]="!(distance >= 0 && distance < 1000 && secondsOld <= 1 && accuracy <= 3)"
+  value="&#8982; Add"
+  type=button
+  (click)="addTarget()">

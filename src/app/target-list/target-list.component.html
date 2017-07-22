@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr>
+      <td>#</td>
+      <td>Distance to base</td>
+      <td>Distance to current</td>
+    </tr>
+  </thead>
+  <tr *ngFor="let t of targets">
+    <td>{{t.latitude}}, {{t.latitude}}</td>
+    <td>{{t.distanceToBase}}</td>
+    <td>{{t.distanceToCurrent}}</td>
+  </tr>
+</table>

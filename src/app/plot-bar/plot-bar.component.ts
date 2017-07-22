@@ -20,15 +20,27 @@ export class PlotBarComponent implements AfterViewInit {
   constructor(private dataService: DataService, private locationService: LocationService) { }
 
   ngAfterViewInit() {
+    let clientWidth = document.documentElement.clientWidth;
+    let devicePixelRatio = window.devicePixelRatio;
+
+    let client = { left: 0, top: 0, width: clientWidth, height: 200 };
+    let widget = { left: 0, top: 0, width: clientWidth * devicePixelRatio, height: 200 * devicePixelRatio };
+
     this.canvas = this.canvasElementRef.nativeElement;
     this.ctx = this.canvas.getContext('2d');
+
+     this.canvas.width = widget.width;
+     this.canvas.height = widget.height;
+
+     this.canvas.style.width = client.width + 'px';
+     this.canvas.style.height = client.height + 'px';
 
     this.getData();
   }
 
   getData() {
     this.locationService.getLocation().subscribe(l => {
-      this.draw();
+      //this.draw();
     });
 
     this.dataService.getTargets().subscribe(t => {
@@ -36,7 +48,7 @@ export class PlotBarComponent implements AfterViewInit {
         return { ...target, distance: this.getDistance(target, this.dataService.currentBase) }
       });
 
-      this.draw();
+      //this.draw();
     });
   }
 
@@ -96,7 +108,7 @@ export class PlotBarComponent implements AfterViewInit {
     //Draw current location
     this.ctx.fillStyle = '#09c';
     this.ctx.beginPath();
-    this.ctx.arc(currentDistance * wr, this.canvas.height / 2 - 25, 5, 0, 2 * Math.PI);
+    this.ctx.arc(currentDistance * wr, this.canvas.height / 2 - 25, 25, 0, 2 * Math.PI);
     this.ctx.fill();
     this.ctx.closePath();
 

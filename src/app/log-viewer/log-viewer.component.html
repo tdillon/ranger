@@ -1,3 +1,7 @@
-<p>
-  log-viewer works!
-</p>
+<div *ngFor="let l of logs">
+  {{l.time.toLocaleTimeString()}}
+  &mdash;
+  {{l.severity}}
+  &mdash;
+  {{l.message}}
+</div>

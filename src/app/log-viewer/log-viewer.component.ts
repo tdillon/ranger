@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { LogService, LogMessage } from "../log.service";
+
 @Component({
   selector: 'app-log-viewer',
   templateUrl: './log-viewer.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogViewerComponent implements OnInit {
 
-  constructor() { }
+  logs: Array<LogMessage> = [];
+
+  constructor(private logService: LogService) { }
 
   ngOnInit() {
+    this.logService.getLog().subscribe(l => this.logs.unshift(l));
   }
 
 }
