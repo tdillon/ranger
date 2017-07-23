@@ -1,5 +1,5 @@
 <input
-  [disabled]="!(distance >= 0 && distance < 1000 && secondsOld <= 1 && accuracy <= 3)"
+  [disabled]="!(distance >= 0 && distance < 1000 && secondsOld <= 1 && accuracy <= bestAccuracy)"
   value="&#8982; Add"
   type=button
   (click)="addTarget()">

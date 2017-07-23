@@ -11,12 +11,18 @@ export class DataService {
 
   BASE = 'base';
   TARGETS = 'targets';
+  ACCURACY = 'accuracy';
+
+  private static DEFAULT_ACCURACY = 3;
 
   base: BehaviorSubject<LatLong>;
   baseObservable: Observable<LatLong>;
 
   targets: BehaviorSubject<Array<LatLong>>;
   targetsObservable: Observable<Array<LatLong>>;
+
+  accuracy: BehaviorSubject<number>;
+  accuracyObservable: Observable<number>;
 
   constructor() {
     this.base = new BehaviorSubject(undefined);
@@ -26,6 +32,10 @@ export class DataService {
     this.targets = new BehaviorSubject([]);
     this.targetsObservable = this.targets.asObservable();
     localForage.getItem<Array<LatLong>>(this.TARGETS).then(t => this.targets.next(t || []));
+
+    this.accuracy = new BehaviorSubject(3);
+    this.accuracyObservable = this.accuracy.asObservable();
+    localForage.getItem<number>(this.ACCURACY).then(a => this.accuracy.next(a || DataService.DEFAULT_ACCURACY));
   }
 
   getBase(): Observable<LatLong> {
@@ -62,6 +72,18 @@ export class DataService {
         localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x));  //TODO catch success/error and log it
       }
     );
+  }
+
+  getAccuracy(): Observable<number> {
+     return this.accuracyObservable;
+  }
+
+  get currentAccuracy() {
+    return this.accuracy.getValue();
+  }
+
+  setAccuracy(value:number) {
+    localForage.setItem(this.ACCURACY, value).then(a => this.accuracy.next(a));
   }
 
 }

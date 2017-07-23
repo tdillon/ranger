@@ -4,6 +4,7 @@ import { LatLong } from "../lat-long";
 import { LocationService } from "../location.service";
 import { DataService } from "../data.service";
 import { TickService } from "../tick.service";
+import { LogService } from "../log.service";
 import { Utilities } from "../utilities";
 
 @Component({
@@ -15,13 +16,15 @@ export class TargetAdderComponent implements OnInit {
 
   distance: number;
   accuracy: number;
+  bestAccuracy:number;
   lastMS: number = Date.now();
   secondsOld: number = Number.MAX_SAFE_INTEGER;
 
   constructor(
     private locationService: LocationService, 
     private dataService: DataService, 
-    private tickService: TickService
+    private tickService: TickService,
+    private logService: LogService
   ) { }
 
   ngOnInit() {
@@ -38,6 +41,11 @@ export class TargetAdderComponent implements OnInit {
       this.accuracy = l.coords.accuracy
       this.lastMS = l.timestamp;
       this.calcFreshness(l.timestamp);
+    });
+
+    this.dataService.getAccuracy().subscribe(a => {
+      this.logService.info(`TargetAdderComponent new accuracy: ${a}`)
+      this.bestAccuracy = a
     });
 
     this.dataService.getBase().subscribe(l => this.updateDistance(this.locationService.currentLocation, l));
