@@ -22,18 +22,17 @@ export class PlotBarComponent implements AfterViewInit {
   ngAfterViewInit() {
     let clientWidth = document.documentElement.clientWidth;
     let devicePixelRatio = window.devicePixelRatio;
-
-    let client = { left: 0, top: 0, width: clientWidth, height: 200 };
-    let widget = { left: 0, top: 0, width: clientWidth * devicePixelRatio, height: 200 * devicePixelRatio };
+    let width = (clientWidth - 32) * devicePixelRatio;  //TODO figure out padding/spacing
+    let height = 100;
 
     this.canvas = this.canvasElementRef.nativeElement;
     this.ctx = this.canvas.getContext('2d');
 
-     this.canvas.width = widget.width;
-     this.canvas.height = widget.height;
+     this.canvas.width = width;
+     this.canvas.height = height * devicePixelRatio;
 
-     this.canvas.style.width = client.width + 'px';
-     this.canvas.style.height = client.height + 'px';
+     this.canvas.style.width = `${clientWidth - 32}px`
+     this.canvas.style.height = `${height}px`;
 
     this.getData();
   }
@@ -48,12 +47,11 @@ export class PlotBarComponent implements AfterViewInit {
         return { ...target, distance: this.getDistance(target, this.dataService.currentBase) }
       });
 
-      //this.draw();
+      this.draw();
     });
   }
 
   private draw() {
-    console.log('draw');
     if (this.targets.length == 0) return;
 
     let currentLocation;
@@ -72,12 +70,14 @@ export class PlotBarComponent implements AfterViewInit {
       max = currentDistance ;
     }
 
+    max = Math.min(max, 1000);
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'top';
 
     //Main bar
-    this.ctx.strokeStyle = '1px solid #09c';
+    this.ctx.strokeStyle = '#fff';
     this.ctx.beginPath();
     this.ctx.moveTo(0, Math.floor(this.canvas.height / 2) + .5);
     this.ctx.lineTo(this.canvas.width, Math.floor(this.canvas.height / 2) + .5);
@@ -87,7 +87,7 @@ export class PlotBarComponent implements AfterViewInit {
     const wr = w / max;
 
     //Draw distance markers and text
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = 'pink';
     for (let i = 1; i <= Math.floor(max / 25); ++i) {
       this.ctx.moveTo(Math.floor(wr * i * 25) + .5, this.canvas.height / 2 - 25);
       this.ctx.lineTo(Math.floor(wr * i * 25) + .5, this.canvas.height / 2 + 25);
