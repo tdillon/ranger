@@ -21,7 +21,7 @@ export class GpsTogglerComponent implements OnInit {
     this.locationService.getLocationStatus().subscribe(s => {
       this.logService.info(`GPSTogglerComponent: ngOnInit: GPS status changed: ${s}`);
       this.on = s;
-    }    );
+    });
   }
 
   onChange() {
