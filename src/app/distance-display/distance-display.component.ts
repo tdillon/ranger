@@ -73,7 +73,7 @@ export class DistanceDisplayComponent implements AfterViewInit {
 
       if (digit.match(/\d/)) {  //0-9
         this.seven.digit = +digit;
-      } else if (digit.match(/\d/)) {  //space
+      } else if (digit.match(/\s/)) {  //space
         this.seven.digit = Digit.BLANK;
       } else if (digit === '-') {
         this.seven.digit = Digit.D;  //TODO how to write only G segment?
