@@ -7,7 +7,6 @@ before_install:
 before_script:
   - npm install -g gulp
 script:
-  - chmod -x create-icons.sh
   - ./create-icons.sh
   - ng build --prod --aot --base-href='/ranger/'
   - gulp
