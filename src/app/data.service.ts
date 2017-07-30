@@ -60,7 +60,6 @@ export class DataService {
   }
 
   addTarget(coords: LatLong) {
-    console.log('addTarget', coords)
     //TODO what should I return?
     return localForage
       .getItem(this.TARGETS)

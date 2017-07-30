@@ -27,19 +27,19 @@ export class DistanceDisplayComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    let clientWidth = document.documentElement.clientWidth;
-    let devicePixelRatio = window.devicePixelRatio;
-
-    this.seven.width = ((clientWidth - 32) * devicePixelRatio) / 3;  //TODO figure out padding/spacing
+    const dpr = window.devicePixelRatio;
 
     this.canvas = this.canvasElementRef.nativeElement;
     this.ctx = this.canvas.getContext('2d');
 
+    const clientWidth = this.canvas.clientWidth;
+    this.seven.width = clientWidth * dpr / 3;
+
     this.canvas.width = this.seven.width * 3;
     this.canvas.height = this.seven.height;
 
-    this.canvas.style.width = `${clientWidth - 32}px`;  //TODO figure out padding/spacing
-    this.canvas.style.height = `${this.seven.height / devicePixelRatio}px`;
+    this.canvas.style.width = `${clientWidth}px`;
+    this.canvas.style.height = `${this.seven.height / dpr}px`;
 
     this.locationService.getLocation().subscribe(p => {
       this.distance = Utilities.getDistance(this.dataService.currentBase, p.coords);
@@ -48,8 +48,6 @@ export class DistanceDisplayComponent implements AfterViewInit {
   }
 
   private draw() {
-    console.log(this.distance);
-
     let display;
 
     if (this.distance === null) {
@@ -69,8 +67,6 @@ export class DistanceDisplayComponent implements AfterViewInit {
     let idx = 0;
 
     for (const digit of display) {
-      console.log(`Write ${digit} to the canvas`);
-
       if (digit.match(/\d/)) {  //0-9
         this.seven.digit = +digit;
       } else if (digit.match(/\s/)) {  //space

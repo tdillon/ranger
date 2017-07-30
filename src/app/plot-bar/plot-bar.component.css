@@ -1,1 +1,7 @@
-canvas{display:block}
+:host {
+  display: block;
+}
+
+canvas {
+  width: 100%;
+}

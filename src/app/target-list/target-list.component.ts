@@ -37,7 +37,6 @@ export class TargetListComponent implements OnInit {
     });
 
     this.dataService.getTargets().subscribe(t => {
-      console.log('this should only hit once, right?');
       this.targets = t.map(t => {
         return {
           ...t,
