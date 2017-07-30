@@ -41,7 +41,7 @@ export class PlotBarComponent implements AfterViewInit {
 
   getData() {
     this.locationService.getLocation().subscribe(l => {
-      //this.draw();
+      this.draw();
     });
 
     this.dataService.getTargets().subscribe(t => {
@@ -134,8 +134,8 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.moveTo(p + currentDistance * wr, c - lineWidth);
     this.ctx.lineTo(p + currentDistance * wr + iconSize / 2, c - lineWidth - iconSize);
     this.ctx.lineTo(p + currentDistance * wr - iconSize / 2, c - lineWidth - iconSize);
-    this.ctx.closePath();
     this.ctx.fill();
+    this.ctx.closePath();
 
   }
 
