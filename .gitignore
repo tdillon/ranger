@@ -40,3 +40,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+
+# Do not commit app icons in src/assets/.  They are generated.
+/src/assets/icon*.png

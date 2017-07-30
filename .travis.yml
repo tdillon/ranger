@@ -1,9 +1,14 @@
 language: node_js
 node_js:
   - "node"
+before_install:
+  -sudo apt-get -qq update
+  -sudo apt-get install -y librsvg2-bin
 before_script:
   - npm install -g gulp
 script:
+  - chmod -x create-icons.sh
+  - ./create-icons.sh
   - ng build --prod --aot --base-href='/ranger/'
   - gulp
 deploy:
@@ -13,3 +18,4 @@ deploy:
   on:
     branch: master
   local_dir: dist
+  
