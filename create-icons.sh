@@ -9,4 +9,3 @@ rsvg -w 128 -h 128 src/icon.svg src/assets/icon-128x128.png
 rsvg -w  96 -h 96 src/icon.svg src/assets/icon-96x96.png
 rsvg -w  72 -h 72 src/icon.svg src/assets/icon-72x72.png
 rsvg -w  48 -h 48 src/icon.svg src/assets/icon-48x48.png
-rsvg -w  16 -h 16 src/icon.svg src/assets/icon-16x16.png
