@@ -8,7 +8,7 @@ addons:
 before_script:
   - npm install -g gulp
 script:
-  - rsvg -v
+  - rsvg-convert -v
   - ./create-icons.sh
   - ng build --prod --aot --base-href='/ranger/'
   - gulp
