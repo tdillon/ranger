@@ -50,14 +50,9 @@
       "sizes": "48x48",
       "type": "image/png",
       "src": "assets/icon-48x48.png"
-    },
-    {
-      "sizes": "16x16",
-      "type": "image/png",
-      "src": "assets/icon-16x16.png"
     }
   ],
-  "start_url": "/index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#263238",
   "theme_color": "#09c",
