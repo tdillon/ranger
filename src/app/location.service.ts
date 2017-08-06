@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
-import 'rxjs/add/operator/filter'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/filter';
 
-import { LogService } from "./log.service";
+import { LogService } from './log.service';
 
 @Injectable()
 export class LocationService {
@@ -22,7 +22,7 @@ export class LocationService {
         this.status = new BehaviorSubject(false);
         this.statusObservable = this.status.asObservable();
 
-        //TODO: get whether gps is on/off from data service
+        // TODO: get whether gps is on/off from data service
         this.turnOn();
     }
 

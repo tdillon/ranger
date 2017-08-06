@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataService } from "../data.service";
-import { LogService } from "../log.service";
+import { DataService } from '../data.service';
+import { LogService } from '../log.service';
 
 @Component({
   selector: 'app-best-accuracy-setter',
@@ -10,12 +10,12 @@ import { LogService } from "../log.service";
 })
 export class BestAccuracySetterComponent implements OnInit {
 
-  accuracy :number;
+  accuracy: number;
 
   constructor(
     private dataService: DataService,
     private logService: LogService
-  ) { 
+  ) {
     this.logService.info('BestAccuracySetterComponent constructor');
   }
 

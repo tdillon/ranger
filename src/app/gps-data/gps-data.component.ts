@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LocationService } from "../location.service";
-import { LogService } from "../log.service";
+import { LocationService } from '../location.service';
+import { LogService } from '../log.service';
 
 @Component({
   selector: 'app-gps-data',
@@ -10,14 +10,14 @@ import { LogService } from "../log.service";
 })
 export class GPSDataComponent implements OnInit {
 
-  location:Position;
+  location: Position;
 
   constructor(
     private locationService: LocationService,
     private logService: LogService
   ) {
-    this.logService.add("GPSDataComponent constructor");
-   }
+    this.logService.add('GPSDataComponent constructor');
+  }
 
   ngOnInit() {
     this.locationService.getLocation().subscribe(l => this.location = l);

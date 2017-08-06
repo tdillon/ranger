@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import * as localForage from "localforage";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
+import * as localForage from 'localforage';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
-import { LatLong } from './lat-long'
+import { LatLong } from './lat-long';
 
 @Injectable()
 export class DataService {
 
+  private static DEFAULT_ACCURACY = 3;
+
   BASE = 'base';
   TARGETS = 'targets';
   ACCURACY = 'accuracy';
-
-  private static DEFAULT_ACCURACY = 3;
 
   base: BehaviorSubject<LatLong>;
   baseObservable: Observable<LatLong>;
@@ -39,14 +39,14 @@ export class DataService {
   }
 
   getBase(): Observable<LatLong> {
-     return this.baseObservable;
+    return this.baseObservable;
   }
 
   get currentBase() {
     return this.base.getValue();
   }
 
-  setBase(coords:LatLong) {
+  setBase(coords: LatLong) {
     if (coords) {
       localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
     } else {
@@ -56,32 +56,31 @@ export class DataService {
 
   getTargets() {
     return this.targetsObservable;
-    //return localForage.getItem(this.TARGETS);
+    // return localForage.getItem(this.TARGETS);
   }
 
   addTarget(coords: LatLong) {
-    //TODO what should I return?
+    // TODO what should I return?
     return localForage
       .getItem(this.TARGETS)
-      .then((t:Array<LatLong>) => {
+      .then((t: Array<LatLong>) => {
         if (!t) {
           t = [];
         }
         t.push(coords);
-        localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x));  //TODO catch success/error and log it
-      }
-    );
+        localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x));  // TODO catch success/error and log it
+      });
   }
 
   getAccuracy(): Observable<number> {
-     return this.accuracyObservable;
+    return this.accuracyObservable;
   }
 
   get currentAccuracy() {
     return this.accuracy.getValue();
   }
 
-  setAccuracy(value:number) {
+  setAccuracy(value: number) {
     localForage.setItem(this.ACCURACY, value).then(a => this.accuracy.next(a));
   }
 

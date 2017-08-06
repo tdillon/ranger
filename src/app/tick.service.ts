@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/observable/timer";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 
 @Injectable()
 export class TickService {

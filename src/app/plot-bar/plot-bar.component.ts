@@ -1,8 +1,8 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
-import { LatLong } from "../lat-long";
-import { DataService } from "../data.service";
-import { LocationService } from "../location.service";
+import { LatLong } from '../lat-long';
+import { DataService } from '../data.service';
+import { LocationService } from '../location.service';
 
 @Component({
   selector: 'app-plot-bar',
@@ -14,26 +14,26 @@ export class PlotBarComponent implements AfterViewInit {
   targets: Array<LatLong & { distance: number }>;
 
   @ViewChild('canvas') private canvasElementRef: ElementRef;
-  canvas: HTMLCanvasElement
+  canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
 
   constructor(private dataService: DataService, private locationService: LocationService) { }
 
   ngAfterViewInit() {
-    let dpr = window.devicePixelRatio;
+    const dpr = window.devicePixelRatio;
 
     this.canvas = this.canvasElementRef.nativeElement;
     this.ctx = this.canvas.getContext('2d');
 
-    let clientWidth = this.canvas.clientWidth;
+    const clientWidth = this.canvas.clientWidth;
 
-    let width = clientWidth * dpr;
-    let height = 25 * dpr;  //TODO magic number, why 25?
+    const width = clientWidth * dpr;
+    const height = 25 * dpr;  // TODO magic number, why 25?
 
     this.canvas.width = width;
     this.canvas.height = height * dpr;
 
-    this.canvas.style.width = `${clientWidth}px`
+    this.canvas.style.width = `${clientWidth}px`;
     this.canvas.style.height = `${height}px`;
 
     this.getData();
@@ -46,7 +46,7 @@ export class PlotBarComponent implements AfterViewInit {
 
     this.dataService.getTargets().subscribe(t => {
       this.targets = t.map(target => {
-        return { ...target, distance: this.getDistance(target, this.dataService.currentBase) }
+        return { ...target, distance: this.getDistance(target, this.dataService.currentBase) };
       });
 
       this.draw();
@@ -60,7 +60,9 @@ export class PlotBarComponent implements AfterViewInit {
      * else if - base, no targets, no current - return
      * else - base, (targets || current) - draw (figure out max distances)
      */
-    if (this.targets.length == 0) return;
+    if (this.targets.length === 0) {
+      return;
+    }
 
     const dpr = window.devicePixelRatio;
     /** width of the canvas */
@@ -77,7 +79,7 @@ export class PlotBarComponent implements AfterViewInit {
     let currentLocation;
     let currentDistance;
 
-    let max: number = this.targets.reduce((a, b, c, d) => {
+    let max: number = this.targets.reduce((a, b) => {
       return (a > b.distance ? a : b.distance);
     }, 0);
 
@@ -99,18 +101,18 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.textBaseline = 'top';
     this.ctx.lineWidth = lineWidth;
 
-    //Main bar
+    // Main bar
     this.ctx.strokeStyle = '#fff';
     this.ctx.beginPath();
     this.ctx.moveTo(p, c);
     this.ctx.lineTo(w - p, c);
     this.ctx.stroke();
 
-    //Base icon
+    // Base icon
     this.ctx.fillStyle = '#00de00';
     this.ctx.fillRect(p - iconSize / 2, c - iconSize - lineWidth, iconSize, iconSize);
 
-    //Distance markers and text
+    // Distance markers and text
     this.ctx.fillStyle = this.ctx.strokeStyle = 'white';
     this.ctx.font = `${iconSize}px sans-serif`;
     for (let i = 0, x = 0; i <= Math.floor(max / 25); x = wr * ++i * 25) {
@@ -120,7 +122,7 @@ export class PlotBarComponent implements AfterViewInit {
       this.ctx.fillText((i * 25).toString(), p + x, c + iconSize);
     }
 
-    //Targets
+    // Targets
     this.ctx.fillStyle = '#f00';
     for (const t of this.targets) {
       this.ctx.beginPath();
@@ -128,7 +130,7 @@ export class PlotBarComponent implements AfterViewInit {
       this.ctx.fill();
     }
 
-    //Current distance
+    // Current distance
     this.ctx.fillStyle = '#09c';
     this.ctx.beginPath();
     this.ctx.moveTo(p + currentDistance * wr, c - lineWidth);
@@ -140,19 +142,19 @@ export class PlotBarComponent implements AfterViewInit {
   }
 
   private getDistance(l1: LatLong, l2: LatLong) {
-    //http://en.wikipedia.org/wiki/Geographical_distance#Tunnel_distance
-    //radians are needed for calculations
+    // http:// en.wikipedia.org/wiki/Geographical_distance#Tunnel_distance
+    // radians are needed for calculations
     const lat1 = l1.latitude * Math.PI / 180,
       lon1 = l1.longitude * Math.PI / 180,
       lat2 = l2.latitude * Math.PI / 180,
       lon2 = l2.longitude * Math.PI / 180,
-      R = 6371.009,  //earth's radius in KM
+      R = 6371.009,  // earth's radius in KM
       X = Math.cos(lat2) * Math.cos(lon2) - Math.cos(lat1) * Math.cos(lon1),
       Y = Math.cos(lat2) * Math.sin(lon2) - Math.cos(lat1) * Math.sin(lon1),
       Z = Math.sin(lat2) - Math.sin(lat1),
       C = Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2) + Math.pow(Z, 2)),
       D = R /*KM*/ * C * 1000 /*M/KM*/ / .9144 /*M/Y*/;
-    return Math.round(D);  //YARDS
+    return Math.round(D);  // YARDS
   }
 
 }

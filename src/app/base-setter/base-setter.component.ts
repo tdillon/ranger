@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataService } from "../data.service";
-import { LocationService } from "../location.service";
-import { LatLong } from "../lat-long";
+import { DataService } from '../data.service';
+import { LocationService } from '../location.service';
+import { LatLong } from '../lat-long';
 
 @Component({
   selector: 'app-base-setter',
@@ -11,10 +11,10 @@ import { LatLong } from "../lat-long";
 })
 export class BaseSetterComponent implements OnInit {
 
-  base :LatLong;
+  base: LatLong;
   showDelete = false;
 
-  constructor(private dataService: DataService, private locationService :LocationService) { }
+  constructor(private dataService: DataService, private locationService: LocationService) { }
 
   ngOnInit() {
     this.getData();
@@ -25,8 +25,8 @@ export class BaseSetterComponent implements OnInit {
   }
 
   setBase(removeBase: boolean) {
-    let c = this.locationService.currentLocation.coords;
-    this.dataService.setBase(removeBase ? null : {latitude: c.latitude, longitude: c.longitude});
+    const c = this.locationService.currentLocation.coords;
+    this.dataService.setBase(removeBase ? null : { latitude: c.latitude, longitude: c.longitude });
   }
 
 }

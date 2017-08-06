@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { LocationService } from './location.service';
-import { DataService } from "./data.service";
-import { TickService} from "./tick.service";
-import { LogService} from "./log.service";
+import { DataService } from './data.service';
+import { TickService} from './tick.service';
+import { LogService} from './log.service';
 
 import { AppComponent } from './app.component';
 import { GpsTogglerComponent } from './gps-toggler/gps-toggler.component';

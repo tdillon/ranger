@@ -1,9 +1,9 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { Seven, Digit } from "seven-segment";
+import { Seven, Digit } from 'seven-segment';
 
-import { Utilities } from "../utilities";
-import { LocationService } from "../location.service";
-import { DataService } from "../data.service";
+import { Utilities } from '../utilities';
+import { LocationService } from '../location.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-distance-display',
@@ -13,7 +13,7 @@ import { DataService } from "../data.service";
 export class DistanceDisplayComponent implements AfterViewInit {
 
   @ViewChild('canvas') private canvasElementRef: ElementRef;
-  canvas: HTMLCanvasElement
+  canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
   seven: Seven;
 
@@ -51,36 +51,36 @@ export class DistanceDisplayComponent implements AfterViewInit {
     let display;
 
     if (this.distance === null) {
-      display = '   '
-    } else if (this.distance >= 1000) {  //[1000-infinity)
-      display = '---'
-    } else if (this.distance >= 0) {  //[0-999]
+      display = '   ';
+    } else if (this.distance >= 1000) {  // [1000-infinity)
+      display = '---';
+    } else if (this.distance >= 0) {  // [0-999]
       display = '   '.concat(this.distance.toString()).substr(-3);
-    } else {  //TODO would this ever happen
+    } else {  // TODO would this ever happen
       display = '===';
     }
 
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    let w = this.seven.width;
+    const w = this.seven.width;
     let idx = 0;
 
     for (const digit of display) {
-      if (digit.match(/\d/)) {  //0-9
+      if (digit.match(/\d/)) {  // 0-9
         this.seven.digit = +digit;
-      } else if (digit.match(/\s/)) {  //space
+      } else if (digit.match(/\s/)) {  // space
         this.seven.digit = Digit.BLANK;
       } else if (digit === '-') {
-        this.seven.digit = Digit.D;  //TODO how to write only G segment?
-      } else if (digit.match(/=/)){
+        this.seven.digit = Digit.D;  // TODO how to write only G segment?
+      } else if (digit.match(/=/)) {
         this.seven.digit = Digit.D;
       }
 
-      for (let s of this.seven.segments) {
+      for (const s of this.seven.segments) {
         this.ctx.fillStyle = `rgba(255,255,255,${(s.on ? .87 : .05)})`;
         this.ctx.beginPath();
-        for (let p of s.points) {
+        for (const p of s.points) {
           this.ctx.lineTo(p.x + .5 + w * idx, p.y + .5);
         }
         this.ctx.closePath();

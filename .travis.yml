@@ -5,13 +5,11 @@ addons:
   apt:
     packages:
     - librsvg2-bin
-before_script:
-  - npm install -g gulp
 script:
   - rsvg-convert -v
   - ./create-icons.sh
-  - ng build --prod --aot --base-href='/ranger/'
-  - gulp
+  - npm run lint
+  - npm run build:prod
 deploy:
   provider: pages
   skip_cleanup: true

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LogService, LogMessage } from "../log.service";
+import { LogService, LogMessage } from '../log.service';
 
 @Component({
   selector: 'app-log-viewer',

@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from "rxjs/Observable";
-import { ReplaySubject } from "rxjs/ReplaySubject";
-import { LogEntry } from "./log-entry";
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export type Severity = 'info' | 'warn' | 'error';
-export type LogMessage = { message: string, severity: Severity, time: Date }
+export interface LogMessage {
+  message: string;
+  severity: Severity;
+  time: Date;
+};
 
 @Injectable()
 export class LogService {
@@ -24,15 +27,15 @@ export class LogService {
   }
 
   info(message: string) {
-    this.add(message, 'info')
+    this.add(message, 'info');
   }
 
   warn(message: string) {
-    this.add(message, 'warn')
+    this.add(message, 'warn');
   }
 
   error(message: string) {
-    this.add(message, 'error')
+    this.add(message, 'error');
   }
 
   getLog() {

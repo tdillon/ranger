@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LocationService } from "../location.service";
-import { LogService } from "../log.service";
+import { LocationService } from '../location.service';
+import { LogService } from '../log.service';
 
 @Component({
   selector: 'app-gps-toggler',
@@ -10,11 +10,11 @@ import { LogService } from "../log.service";
 })
 export class GpsTogglerComponent implements OnInit {
 
-  on:boolean;
+  on: boolean;
 
   constructor(
-    private locationService:LocationService,
-    private logService:LogService
+    private locationService: LocationService,
+    private logService: LogService
   ) { }
 
   ngOnInit() {
