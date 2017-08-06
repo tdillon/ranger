@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
-
-  showAdmin = false;
+export class AdminComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
-
-  toggleShowAdmin() {
-    this.showAdmin  = !this.showAdmin;
-  }
 
 }

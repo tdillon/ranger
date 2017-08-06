@@ -19,6 +19,7 @@ import { DistanceDisplayComponent } from './distance-display/distance-display.co
 import { BestAccuracySetterComponent } from './best-accuracy-setter/best-accuracy-setter.component';
 import { TargetListComponent } from './target-list/target-list.component';
 import { GPSDataComponent } from './gps-data/gps-data.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GPSDataComponent } from './gps-data/gps-data.component';
     DistanceDisplayComponent,
     BestAccuracySetterComponent,
     TargetListComponent,
-    GPSDataComponent
+    GPSDataComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

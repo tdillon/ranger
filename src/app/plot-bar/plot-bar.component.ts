@@ -60,7 +60,7 @@ export class PlotBarComponent implements AfterViewInit {
      * else if - base, no targets, no current - return
      * else - base, (targets || current) - draw (figure out max distances)
      */
-    if (this.targets.length === 0) {
+    if (!this.targets || this.targets.length === 0) {
       return;
     }
 

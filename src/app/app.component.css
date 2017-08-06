@@ -1,3 +1,16 @@
-:host > * {
+:host>*:not(footer) {
   margin-bottom: 3em;
+}
+
+footer {
+  font-size: 3em;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.current {
+  border-top: solid .2em #09c;
 }
