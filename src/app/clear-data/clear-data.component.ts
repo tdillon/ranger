@@ -14,15 +14,15 @@ export class ClearDataComponent implements OnInit {
 
   constructor(private dataService: DataService, private logService: LogService) { }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 
   clear() {
     this.dataService.setBase(null);
     this.logService.info(`ClearDataComponent - clear - removed base`);
-    
+
     this.dataService.removeAllTargets();
     this.logService.info(`ClearDataComponent - clear - removed all targets`);
-    
+
     this.showDelete = false;
   }
 
