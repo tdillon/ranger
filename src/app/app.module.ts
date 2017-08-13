@@ -20,6 +20,8 @@ import { BestAccuracySetterComponent } from './best-accuracy-setter/best-accurac
 import { TargetListComponent } from './target-list/target-list.component';
 import { GPSDataComponent } from './gps-data/gps-data.component';
 import { MapComponent } from './map/map.component';
+import { DownloadDataComponent } from './download-data/download-data.component';
+import { ClearDataComponent } from './clear-data/clear-data.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { MapComponent } from './map/map.component';
     BestAccuracySetterComponent,
     TargetListComponent,
     GPSDataComponent,
-    MapComponent
+    MapComponent,
+    DownloadDataComponent,
+    ClearDataComponent
   ],
   imports: [
     BrowserModule,

@@ -46,6 +46,9 @@ export class DataService {
     return this.base.getValue();
   }
 
+  /**
+   * @param coords location of the base, null to remove the base
+   */
   setBase(coords: LatLong) {
     if (coords) {
       localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
@@ -70,6 +73,10 @@ export class DataService {
         t.push(coords);
         localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x));  // TODO catch success/error and log it
       });
+  }
+
+  removeAllTargets() {
+    localForage.removeItem(this.TARGETS).then(x => this.targets.next([]));
   }
 
   getAccuracy(): Observable<number> {

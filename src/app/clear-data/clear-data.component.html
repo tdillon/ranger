@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="showDelete">
+  <input *ngSwitchCase="false" type=button value="Delete all data" (click)="showDelete = true">
+  <ng-container *ngSwitchCase="true">
+    <input type=button value=Cancel (click)="showDelete = false">
+    <input type=button value=Delete (click)="clear()">
+  </ng-container>
+</ng-container>
