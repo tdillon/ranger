@@ -3,12 +3,19 @@
 }
 
 footer {
-  font-size: 3em;
   text-align: center;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+footer>span {
+  font-size: 3em;
+}
+
+footer>div, a {
+  color: rgba(255, 255, 255, .5);
 }
 
 .current {

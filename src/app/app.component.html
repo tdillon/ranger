@@ -1,17 +1,24 @@
 <ng-container [ngSwitch]="currentPage">
-    <ng-container *ngSwitchCase="pages.HOME">
-        <app-distance-display></app-distance-display>
-        <app-target-adder></app-target-adder>
-        <app-plot-bar></app-plot-bar>
-    </ng-container>
+  <ng-container *ngSwitchCase="pages.HOME">
+    <app-distance-display></app-distance-display>
+    <app-target-adder></app-target-adder>
+    <app-plot-bar></app-plot-bar>
+  </ng-container>
 
-    <app-map *ngSwitchCase="pages.MAP"></app-map>
+  <app-map *ngSwitchCase="pages.MAP"></app-map>
 
-    <app-admin *ngSwitchCase="pages.ADMIN"></app-admin>
+  <app-admin *ngSwitchCase="pages.ADMIN"></app-admin>
 </ng-container>
 
 <footer>
-    <span (click)="currentPage = pages.HOME" [ngClass]="{'current': currentPage === pages.HOME}">&#8962;</span>
-    <span (click)="currentPage = pages.MAP" [ngClass]="{'current': currentPage === pages.MAP}">&#11216;</span>
-    <span (click)="currentPage = pages.ADMIN" [ngClass]="{'current': currentPage === pages.ADMIN}">&#9881;</span>
+  <span (click)="currentPage = pages.HOME" [ngClass]="{'current': currentPage === pages.HOME}">&#8962;</span>
+  <span (click)="currentPage = pages.MAP" [ngClass]="{'current': currentPage === pages.MAP}">&#11216;</span>
+  <span (click)="currentPage = pages.ADMIN" [ngClass]="{'current': currentPage === pages.ADMIN}">&#9881;</span>
+  <div>
+      v{{buildInfo.version}} 
+      &bull; 
+      Build #<a [href]="buildInfo.buildUrl">{{buildInfo.buildNumber}}</a>
+      &bull; 
+      Commit: <a [href]="buildInfo.repoUrl">{{buildInfo.commit}}</a>
+    </div>
 </footer>

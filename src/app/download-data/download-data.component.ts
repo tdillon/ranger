@@ -19,18 +19,21 @@ export class DownloadDataComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getBase().subscribe(b => {
-      this.base = b
+      this.base = b;
       this.updateHref();
     });
 
     this.dataService.getTargets().subscribe(ta => {
-      this.targets = ta
+      this.targets = ta;
       this.updateHref();
     });
   }
 
   private updateHref() {
-    this.jsonHref = this.domSanitizer.bypassSecurityTrustUrl(`data:text/json;charset=UTF-8,${encodeURIComponent(JSON.stringify({ 'base': this.base, 'targets': this.targets }))}`);
+    this.jsonHref =
+      this.domSanitizer.bypassSecurityTrustUrl(
+        `data:text/json;charset=UTF-8,${encodeURIComponent(JSON.stringify({ 'base': this.base, 'targets': this.targets }))}`
+      );
   }
 
 }
