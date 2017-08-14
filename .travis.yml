@@ -6,21 +6,25 @@ addons:
     packages:
     - librsvg2-bin
 script:
-  - PACKAGE_VERSION=$(node -pe "require('./package.json').version")  #Get version from package.json
+  # Get version from package.json.
+  - PACKAGE_VERSION=$(node -pe "require('./package.json').version")
+  # Write out build info variables.
   - echo $PACKAGE_VERSION
-  - sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/$PACKAGE_VERSION/" src/app/buildInfo.ts  #replace version in buildInfo.ts
   - echo $TRAVIS_BUILD_NUMBER
   - echo $TRAVIS_BUILD_ID
   - echo $TRAVIS_COMMIT
-
-#buildNumber: 1,     TRAVIS_BUILD_NUMBER
-#buildUrl: 'https://travis-ci.org/tdillon/ranger/builds/232250457',    TRAVIS_BUILD_ID
-#commit: 'cf988d2',     TRAVIS_COMMIT
-#repoUrl: 'https://github.com/tdillon/ranger/commit/cf988d2f8d4c6d82fe80ecc4c2352a3b9abb1aa9'   TRAVIS_COMMIT
-
+  # Update buildInfo.ts with build info.
+  - sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/$PACKAGE_VERSION/" src/app/buildInfo.ts
+  - sed -i "s/\(buildNumber.*\)[0-9]\+/\1$TRAVIS_BUILD_NUMBER/" src/app/buildInfo.ts
+  - sed -i "s/\(buildUrl.*\)[0-9]\+/\1$TRAVIS_BUILD_ID/" src/app/buildInfo.ts
+  - sed -i "s/\(commit:.*\)[a-fA-F0-9]\+/\1$TRAVIS_COMMIT/" src/app/buildInfo.ts
+  - sed -i "s/\(repoUrl.*commit\/\)[a-fA-F0-9]\+/\1$TRAVIS_COMMIT/" src/app/buildInfo.ts
+  # Create icons.
   - rsvg-convert -v
   - ./create-icons.sh
+  # Lint code.
   - npm run lint
+  # Production build.
   - npm run build:prod
 deploy:
   provider: pages

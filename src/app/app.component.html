@@ -19,6 +19,6 @@
       &bull; 
       Build #<a [href]="buildInfo.buildUrl">{{buildInfo.buildNumber}}</a>
       &bull; 
-      Commit: <a [href]="buildInfo.repoUrl">{{buildInfo.commit}}</a>
+      Commit: <a [href]="buildInfo.repoUrl">{{buildInfo.commit.substr(0, 7)}}</a>
     </div>
 </footer>
