@@ -1,38 +1,29 @@
-<div *ngIf="location">
-  <dl>
-    <dt>Seconds since fix</dt>
-    <dd>TODO</dd>
-  </dl>
-  <dl>
-    <dt>Last Fix</dt>
-    <dd>{{location.timestamp}}</dd>
-  </dl>
-  <dl>
-    <dt>Accuracy</dt>
-    <dd>{{location.coords.accuracy}}</dd>
-  </dl>
-  <dl>
-    <dt>Altitude</dt>
-    <dd>{{location.coords.altitude}}</dd>
-  </dl>
-  <dl>
-    <dt>Altitude Accuracy</dt>
-    <dd>{{location.coords.altitudeAccuracy}}</dd>
-  </dl>
-  <dl>
-    <dt>Heading</dt>
-    <dd>{{location.coords.heading}}</dd>
-  </dl>
-  <dl>
-    <dt>Latitude</dt>
-    <dd>{{location.coords.latitude}}</dd>
-  </dl>
-  <dl>
-    <dt>Longitude</dt>
-    <dd>{{location.coords.longitude}}</dd>
-  </dl>
-  <dl>
-    <dt>Speed</dt>
-    <dd>{{location.coords.speed}}</dd>
-  </dl>
-</div>
+<ng-container *ngIf="location">
+  <div>
+    <b>Seconds since fix</b> TODO
+  </div>
+  <div>
+    <b>Last Fix</b> {{location.timestamp}}
+  </div>
+  <div>
+    <b>Accuracy</b> {{location.coords.accuracy}}
+  </div>
+  <div>
+    <b>Altitude</b> {{location.coords.altitude}}
+  </div>
+  <div>
+    <b>Altitude Accuracy</b> {{location.coords.altitudeAccuracy}}
+  </div>
+  <div>
+    <b>Heading</b> {{location.coords.heading}}
+  </div>
+  <div>
+    <b>Latitude</b> {{location.coords.latitude}}
+  </div>
+  <div>
+    <b>Longitude</b> {{location.coords.longitude}}
+  </div>
+  <div>
+    <b>Speed</b> {{location.coords.speed}}
+  </div>
+</ng-container>
