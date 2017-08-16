@@ -16,7 +16,7 @@ script:
   # Update buildInfo.ts with build info.
   - sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/$PACKAGE_VERSION/" src/app/buildInfo.ts
   - sed -i "s/\(buildNumber.*\)[0-9]\+/\1$TRAVIS_BUILD_NUMBER/" src/app/buildInfo.ts
-  - sed -i "s/\(buildUrl.*\)[0-9]\+/\1$TRAVIS_BUILD_ID/" src/app/buildInfo.ts
+  - sed -i "s/\(buildUrl.*builds\/\)[0-9]\+/\1$TRAVIS_BUILD_ID/" src/app/buildInfo.ts
   - sed -i "s/\(commit:.*\)[a-fA-F0-9]\+/\1$TRAVIS_COMMIT/" src/app/buildInfo.ts
   - sed -i "s/\(repoUrl.*commit\/\)[a-fA-F0-9]\+/\1$TRAVIS_COMMIT/" src/app/buildInfo.ts
   # Create icons.
