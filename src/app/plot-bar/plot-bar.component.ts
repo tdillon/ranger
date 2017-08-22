@@ -133,6 +133,13 @@ export class PlotBarComponent implements AfterViewInit {
     this.drawMarker(iconSize + 5 * dpr, '#09c', p + currentDistance * wr, c - lineWidth);
   }
 
+  /**
+   * Draw a pretty marker.
+   * @param height Overall height of the marker.
+   * @param color Color of the marker.  CSS color string.
+   * @param x X position of the bottom point of the marker.
+   * @param y Y position of the bottom point of the marker.
+   */
   private drawMarker(height, color, x, y) {
     const width = height * .7;
     const r = width / 2;
