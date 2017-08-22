@@ -68,7 +68,7 @@ export class PlotBarComponent implements AfterViewInit {
     /** width of the canvas */
     const w = this.canvas.width;
     /** size of square that contains the icons and font */
-    const iconSize = 20 * dpr;
+    const iconSize = 25 * dpr;
     /** padding of the ... */
     const p = iconSize / 2 + (1 * dpr /* extra brreathing space */);
     /** vertical centerline of the canvas */
@@ -104,41 +104,32 @@ export class PlotBarComponent implements AfterViewInit {
     // Main bar
     this.ctx.strokeStyle = '#fff';
     this.ctx.beginPath();
-    this.ctx.moveTo(p, c);
-    this.ctx.lineTo(w - p, c);
+    this.ctx.moveTo(p - lineWidth / 2, c);
+    this.ctx.lineTo(w - p - lineWidth / 2, c);
     this.ctx.stroke();
 
     // Base icon
-    this.ctx.fillStyle = '#00de00';
-    this.ctx.fillRect(p - iconSize / 2, c - iconSize - lineWidth, iconSize, iconSize);
+    this.drawMarker(iconSize - 5 * dpr, 'rgba(255,255,255,.3)', p, c - lineWidth);
 
     // Distance markers and text
-    this.ctx.fillStyle = this.ctx.strokeStyle = 'white';
+    this.ctx.fillStyle = this.ctx.strokeStyle = '#fff';
     this.ctx.font = `${iconSize}px sans-serif`;
+    this.ctx.beginPath();
     for (let i = 0, x = 0; i <= Math.floor(max / 25); x = wr * ++i * 25) {
       this.ctx.moveTo(p + x, c);
-      this.ctx.lineTo(p + x, c + iconSize);
+      this.ctx.lineTo(p + x, c + iconSize / 2);
       this.ctx.stroke();
-      this.ctx.fillText((i * 25).toString(), p + x, c + iconSize);
+      this.ctx.fillText((i * 25).toString(), p + x, c + iconSize / 2);
     }
+    this.ctx.closePath();
 
     // Targets
-    this.ctx.fillStyle = '#f00';
     for (const t of this.targets) {
-      this.ctx.beginPath();
-      this.ctx.arc(p + t.distance * wr, c - iconSize / 2 - lineWidth, iconSize / 2, 0, 2 * Math.PI);
-      this.ctx.fill();
+      this.drawMarker(iconSize, 'rgba(255, 255, 255, .6)', p + t.distance * wr, c - lineWidth);
     }
 
     // Current distance
-    this.ctx.fillStyle = '#09c';
-    this.ctx.beginPath();
-    this.ctx.moveTo(p + currentDistance * wr, c - lineWidth);
-    this.ctx.lineTo(p + currentDistance * wr + iconSize / 2, c - lineWidth - iconSize);
-    this.ctx.lineTo(p + currentDistance * wr - iconSize / 2, c - lineWidth - iconSize);
-    this.ctx.fill();
-    this.ctx.closePath();
-
+    this.drawMarker(iconSize +  5 * dpr, '#09c', p + currentDistance * wr, c - lineWidth);
   }
 
   private getDistance(l1: LatLong, l2: LatLong) {
@@ -155,6 +146,25 @@ export class PlotBarComponent implements AfterViewInit {
       C = Math.sqrt(Math.pow(X, 2) + Math.pow(Y, 2) + Math.pow(Z, 2)),
       D = R /*KM*/ * C * 1000 /*M/KM*/ / .9144 /*M/Y*/;
     return Math.round(D);  // YARDS
+  }
+
+  private drawMarker(height, color, x, y) {
+    const width = height * .7;
+    const r = width / 2;
+    const cx = x;
+    const cy = y - height + r;
+
+    this.ctx.fillStyle = color;
+
+    this.ctx.beginPath();
+
+    this.ctx.arc(cx, cy, r, -Math.PI, 0);
+    this.ctx.quadraticCurveTo(cx + r, cy + r * .7, cx, y);
+    this.ctx.quadraticCurveTo(cx - r, cy + r * .7, cx - r, cy);
+
+    this.ctx.closePath();
+    this.ctx.fill();
+
   }
 
 }
