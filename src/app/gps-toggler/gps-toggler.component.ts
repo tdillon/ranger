@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LocationService } from '../location.service';
-import { LocationStatusService, LocationStatusData } from "../location-status.service";
+import { LocationStatusService, LocationStatusData } from '../location-status.service';
 import { LogService } from '../log.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class GpsTogglerComponent implements OnInit {
 
   on: boolean;
   status: LocationStatusData;
-  
+
   constructor(
     private locationService: LocationService,
     private logService: LogService,
@@ -30,7 +30,7 @@ export class GpsTogglerComponent implements OnInit {
 
   }
 
-  onChange(status:boolean) {
+  onChange(status: boolean) {
     this.logService.info(`GPSTogglerComponent: onChange: Setting GPS: ${status}`);
     this.locationService.setGPS(status);
   }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocationService } from '../location.service';
 import { LogService } from '../log.service';
-import { LocationStatusService, LocationStatusData } from "../location-status.service";
+import { LocationStatusService, LocationStatusData } from '../location-status.service';
 
 @Component({
   selector: 'app-gps-data',

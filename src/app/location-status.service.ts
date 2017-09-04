@@ -5,11 +5,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/timer';
 
-import { LocationService } from "./location.service";
-import { LogService } from "./log.service";
-import { DataService } from "./data.service";
-import { Utilities } from "./utilities";
-import { LatLong } from "./lat-long";
+import { LocationService } from './location.service';
+import { LogService } from './log.service';
+import { DataService } from './data.service';
+import { Utilities } from './utilities';
+import { LatLong } from './lat-long';
 
 export interface LocationStatusData {
   /** Last position data returned from GPS, or null. */
