@@ -27,3 +27,53 @@
     <b>Speed</b> {{location.coords.speed}}
   </div>
 </ng-container>
+<hr>
+<ng-container *ngIf="status && status.position">
+  <div>
+    <b>Last Fix</b> {{status.position.timestamp}}
+  </div>
+  <div>
+    <b>Accuracy</b> {{status.position.coords.accuracy}}
+  </div>
+  <div>
+    <b>Altitude</b> {{status.position.coords.altitude}}
+  </div>
+  <div>
+    <b>Altitude Accuracy</b> {{status.position.coords.altitudeAccuracy}}
+  </div>
+  <div>
+    <b>Heading</b> {{status.position.coords.heading}}
+  </div>
+  <div>
+    <b>Latitude</b> {{status.position.coords.latitude}}
+  </div>
+  <div>
+    <b>Longitude</b> {{status.position.coords.longitude}}
+  </div>
+  <div>
+    <b>Speed</b> {{status.position.coords.speed}}
+  </div>
+</ng-container>
+<ng-container *ngIf="status">
+  <div>
+    <b>Seconds since fix</b> {{status.sslf}}
+  </div>
+  <div>
+    <b>is fresh</b> {{status.isFresh}}
+  </div>
+  <div>
+    <b>Minimum accpt. acc.</b> {{status.maa}}
+  </div>
+  <div>
+    <b>GPS accuracy</b> {{status.accuracy}}
+  </div>
+  <div>
+    <b>is accurate</b> {{status.isAccurate}}
+  </div>
+  <div>
+    <b>distance from base</b> {{status.dfb}}
+  </div>
+  <div>
+    <b>is out of bounds</b> {{status.isOutOfBounds}}
+  </div>
+</ng-container>

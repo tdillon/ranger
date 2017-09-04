@@ -7,6 +7,7 @@ import { LocationService } from './location.service';
 import { DataService } from './data.service';
 import { TickService} from './tick.service';
 import { LogService} from './log.service';
+import { LocationStatusService } from './location-status.service';
 
 import { AppComponent } from './app.component';
 import { GpsTogglerComponent } from './gps-toggler/gps-toggler.component';
@@ -45,7 +46,7 @@ import { ClearDataComponent } from './clear-data/clear-data.component';
     FormsModule,
     HttpModule
   ],
-  providers: [LocationService, DataService, TickService, LogService],
+  providers: [LocationService, DataService, TickService, LogService, LocationStatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

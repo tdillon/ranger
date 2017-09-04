@@ -1,1 +1,20 @@
-GPS <input type=checkbox [(ngModel)]="on" (change)="onChange()">
+<div id=toggler>
+  <div [class.gpsOn]="on">
+    GPS
+  </div>
+  <div>
+    <div [class.active]="!on" (click)="onChange(false)">0</div>
+    <div [class.active]="on" (click)="onChange(true)">1</div>
+  </div>
+</div>
+<div id=statuses>
+  <div *ngIf="!status.isAccurate">
+    &#8982; {{status.accuracy}} > {{status.maa}}
+  </div>
+  <div *ngIf="!status.isFresh">
+    &#8987; {{status.sslf}} > 1
+  </div>
+  <div *ngIf="!status.isAccurate">
+    &#9678; {{status.dfb}} > 1000
+  </div>
+</div>

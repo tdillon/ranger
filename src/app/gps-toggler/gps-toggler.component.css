@@ -1,0 +1,39 @@
+:host{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 50%;
+    vertical-align: middle;
+}
+
+#toggler > :first-child{
+    padding:.25em;
+    background: #f00;
+}
+
+#toggler > :first-child.gpsOn {
+    background: #09c;
+}
+
+#toggler > :last-child{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#toggler > :last-child > div {
+    flex-grow: 1;
+    padding: .25em;
+}
+
+#toggler > :last-child > :first-child.active {
+    background: #f00;
+}
+
+#toggler > :last-child > :last-child.active {
+    background: #09c;
+}
+
+#statuses > div {
+    background: darkorange;
+}

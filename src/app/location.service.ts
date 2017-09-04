@@ -23,7 +23,7 @@ export class LocationService {
         this.statusObservable = this.status.asObservable();
 
         // TODO: get whether gps is on/off from data service
-        this.turnOn();
+        //this.turnOn();
     }
 
     private get hasGeoLocation(): boolean {
