@@ -24,7 +24,7 @@ export class GPSDataComponent implements OnInit {
 
   ngOnInit() {
     this.locationService.getLocation().subscribe(l => this.location = l);
-    this.locationStatusService.getStatus().subscribe(s => this.status = s);
+    this.locationStatusService.getLocationStatus().subscribe(s => this.status = s);
   }
 
 }

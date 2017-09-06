@@ -1,9 +1,7 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Seven, Digit } from 'seven-segment';
 
-import { Utilities } from '../utilities';
-import { LocationService } from '../location.service';
-import { DataService } from '../data.service';
+import { LocationStatusData, LocationStatusService } from '../location-status.service';
 
 @Component({
   selector: 'app-distance-display',
@@ -20,8 +18,7 @@ export class DistanceDisplayComponent implements AfterViewInit {
   distance: number = null;
 
   constructor(
-    private locationService: LocationService,
-    private dataService: DataService
+    private locationStatusService: LocationStatusService
   ) {
     this.seven = new Seven();
   }
@@ -41,8 +38,8 @@ export class DistanceDisplayComponent implements AfterViewInit {
     this.canvas.style.width = `${clientWidth}px`;
     this.canvas.style.height = `${this.seven.height / dpr}px`;
 
-    this.locationService.getLocation().subscribe(p => {
-      this.distance = Utilities.getDistance(this.dataService.currentBase, p.coords);
+    this.locationStatusService.getLocationStatus().subscribe(l => {
+      this.distance = l.dfb;
       this.draw();
     });
   }

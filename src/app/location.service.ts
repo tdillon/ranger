@@ -64,17 +64,17 @@ export class LocationService {
         if (this.hasGeoLocation) {
             this.logService.info('LocationService: turnOn: geolocation is available');
 
-            this.watchID = navigator.geolocation.watchPosition(
-                p => this.location.next(p),
-                p => {
-                    this.logService.error(`LocationService: watchPosition: (${p.code}) ${p.message}`);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 20000,  /* 20 seconds */
-                    maximumAge: 5000  /* 5 seconds */
-                }
-            );
+            // this.watchID = navigator.geolocation.watchPosition(
+            //     p => this.location.next(p),
+            //     p => {
+            //         this.logService.error(`LocationService: watchPosition: (${p.code}) ${p.message}`);
+            //     },
+            //     {
+            //         enableHighAccuracy: true,
+            //         timeout: 20000,  /* 20 seconds */
+            //         maximumAge: 5000  /* 5 seconds */
+            //     }
+            // );
 
             this.logService.info(`LocationService: turnOn: GPS turned on.  ID: ${this.watchID}.`);
         } else {

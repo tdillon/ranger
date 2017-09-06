@@ -37,8 +37,11 @@ export interface LocationStatusData {
 @Injectable()
 export class LocationStatusService {
 
+  private watchID: number = null;
   private base: LatLong;
   private statusSubject: BehaviorSubject<LocationStatusData>;
+  /** Is GPS off (false) or on (true). */
+  private gpsState: BehaviorSubject<boolean>;
   private sub: Subscription;
   private status: LocationStatusData = {
     position: null,
@@ -56,16 +59,17 @@ export class LocationStatusService {
     private logService: LogService,
     private dataService: DataService
   ) {
+    this.gpsState = new BehaviorSubject(false);
     this.statusSubject = new BehaviorSubject(this.status);
 
-    this.locationService.getLocation().subscribe(p => {
-      if (this.sub) {
-        this.sub.unsubscribe();
-      }
-      this.status.position = p;
-      this.updateInfo();
-      this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
-    });
+    // this.locationService.getLocation().subscribe(p => {
+    //   if (this.sub) {
+    //     this.sub.unsubscribe();
+    //   }
+    //   this.status.position = p;
+    //   this.updateInfo();
+    //   this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
+    // });
 
     this.dataService.getAccuracy().subscribe(a => {
       this.status.maa = a;
@@ -77,15 +81,19 @@ export class LocationStatusService {
       this.updateInfo();
     });
 
-    this.locationService.getLocationStatus().subscribe(s => {
-      if (this.sub) {
-        this.sub.unsubscribe();
-      }
+    // this.locationService.getLocationStatus().subscribe(s => {
+    //   if (this.sub) {
+    //     this.sub.unsubscribe();
+    //   }
 
-      if (s) {
-        this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
-      }
-    });
+    //   if (s) {
+    //     this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
+    //   }
+    // });
+  }
+
+  private get hasGeoLocation(): boolean {
+    return 'geolocation' in navigator;
   }
 
   private updateInfo() {
@@ -104,8 +112,83 @@ export class LocationStatusService {
   /**
    * While GPS is on, emits a LocationStatusData object approximately every second.
    */
-  getStatus() {
+  public getGPSState() {
+    return this.gpsState.asObservable();
+  }
+
+  /**
+     * Returns true if the app attempts to use GPS, false otherwise.
+     */
+  public getLocationStatus() {
     return this.statusSubject.asObservable();
   }
+
+
+  /**
+   * Turns the GPS on (true) or off (false).
+   * @param status true to turn on the GPS, false to turn it off.
+   */
+  public setGPS(status: boolean) {
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
+
+    if (status) {
+      this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
+    }
+
+    if (status && this.watchID !== null) {
+      this.logService.warn(`LocationService: setGPS: GPS already on.`);
+    } else if (status) {
+      this.turnOn();
+    } else {
+      this.turnOff();
+    }
+  }
+
+  private turnOn() {
+    this.logService.info(`LocationService: turnOn: Turning on GPS.`);
+
+    this.gpsState.next(true);
+
+    if (this.hasGeoLocation) {
+      this.logService.info('LocationService: turnOn: geolocation is available');
+
+      this.watchID = navigator.geolocation.watchPosition(
+        p => {
+          if (this.sub) {
+            this.sub.unsubscribe();
+          }
+          this.status.position = p;
+          this.updateInfo();
+          this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
+        },
+        p => {
+          this.logService.error(`LocationService: watchPosition: (${p.code}) ${p.message}`);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 20000,  /* 20 seconds */
+          maximumAge: 5000  /* 5 seconds */
+        }
+      );
+
+      this.logService.info(`LocationService: turnOn: GPS turned on.  ID: ${this.watchID}.`);
+    } else {
+      this.logService.error('LocationService: turnOn: geolocation IS NOT available');
+    }
+  }
+
+  private turnOff() {
+    this.logService.info(`LocationService: turnOff: Turning off GPS.  ID: ${this.watchID}`);
+
+    this.gpsState.next(false);
+
+    if (this.hasGeoLocation) {
+      navigator.geolocation.clearWatch(this.watchID);
+      this.watchID = null;
+    }
+  }
+
 
 }
