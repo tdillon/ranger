@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LatLong } from '../lat-long';
 import { DataService } from '../data.service';
 import { LogService } from '../log.service';
-import { LocationStatusData, LocationStatusService } from "../location-status.service";
+import { LocationStatusData, LocationStatusService } from '../location-status.service';
 
 @Component({
   selector: 'app-target-adder',
@@ -12,7 +12,7 @@ import { LocationStatusData, LocationStatusService } from "../location-status.se
 })
 export class TargetAdderComponent implements OnInit {
 
-  public status : LocationStatusData;
+  public status: LocationStatusData;
   distance: number;
   accuracy: number;
   bestAccuracy: number;
@@ -30,7 +30,8 @@ export class TargetAdderComponent implements OnInit {
   }
 
   addTarget() {
-    //this.dataService.addTarget(new LatLong(this.locationService.currentLocation.coords));
+    // TODO
+    // this.dataService.addTarget(new LatLong(this.locationService.currentLocation.coords));
   }
 
   getLocation() {
