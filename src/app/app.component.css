@@ -2,6 +2,10 @@
   margin-bottom: 3em;
 }
 
+header {
+  display: flex;
+}
+
 footer {
   text-align: center;
   position: fixed;
@@ -14,7 +18,8 @@ footer>span {
   font-size: 3em;
 }
 
-footer>div, a {
+footer>div,
+a {
   color: rgba(255, 255, 255, .5);
 }
 

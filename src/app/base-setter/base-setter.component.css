@@ -1,0 +1,12 @@
+:host{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 50%;
+    vertical-align: middle;
+}
+
+:host > :first-child{
+    padding:.25em;
+    background: #f00;
+}
