@@ -4,7 +4,7 @@ import { Utilities } from '../utilities';
 import { LatLong } from '../lat-long';
 import { LogService } from '../log.service';
 import { DataService } from '../data.service';
-import { LocationStatusService, LocationStatusData } from '../location-status.service';
+import { LocationService, LocationStatusData } from '../location.service';
 
 @Component({
   selector: 'app-target-list',
@@ -18,14 +18,14 @@ export class TargetListComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private locationStatusService: LocationStatusService,
+    private LocationService: LocationService,
     private logService: LogService
   ) {
     this.logService.info('TargetListComponent constructor');
   }
 
   ngOnInit() {
-    this.locationStatusService.getLocationStatus().subscribe(s => {
+    this.LocationService.getLocationStatus().subscribe(s => {
       this.status = s;
       console.log('getLocationStatus', this.status);
       this.targets.forEach(t =>

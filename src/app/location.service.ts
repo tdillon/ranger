@@ -34,7 +34,7 @@ export interface LocationStatusData {
 }
 
 @Injectable()
-export class LocationStatusService {
+export class LocationService {
 
   private watchID: number = null;
   private base: LatLong;

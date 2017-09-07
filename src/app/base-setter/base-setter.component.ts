@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DataService } from '../data.service';
-import { LocationStatusService, LocationStatusData } from '../location-status.service';
+import { LocationService, LocationStatusData } from '../location.service';
 import { LatLong } from '../lat-long';
 
 @Component({
@@ -17,12 +17,12 @@ export class BaseSetterComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private locationStatusService: LocationStatusService
+    private LocationService: LocationService
   ) { }
 
   ngOnInit() {
     this.dataService.getBase().subscribe(b => this.base = b);
-    this.locationStatusService.getLocationStatus().subscribe(s => {
+    this.LocationService.getLocationStatus().subscribe(s => {
       this.locationStatus = s;
     });
   }

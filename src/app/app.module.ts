@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { DataService } from './data.service';
 import { TickService } from './tick.service';
 import { LogService } from './log.service';
-import { LocationStatusService } from './location-status.service';
+import { LocationService } from './location.service';
 
 import { AppComponent } from './app.component';
 import { GpsTogglerComponent } from './gps-toggler/gps-toggler.component';
@@ -45,7 +45,7 @@ import { ClearDataComponent } from './clear-data/clear-data.component';
     FormsModule,
     HttpModule
   ],
-  providers: [DataService, TickService, LogService, LocationStatusService],
+  providers: [DataService, TickService, LogService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

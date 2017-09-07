@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LatLong } from '../lat-long';
 import { DataService } from '../data.service';
 import { LogService } from '../log.service';
-import { LocationStatusData, LocationStatusService } from '../location-status.service';
+import { LocationStatusData, LocationService } from '../location.service';
 
 @Component({
   selector: 'app-target-adder',
@@ -20,7 +20,7 @@ export class TargetAdderComponent implements OnInit {
   secondsOld: number = Number.MAX_SAFE_INTEGER;
 
   constructor(
-    private locationStatusService: LocationStatusService,
+    private LocationService: LocationService,
     private dataService: DataService,
     private logService: LogService
   ) { }
@@ -34,7 +34,7 @@ export class TargetAdderComponent implements OnInit {
   }
 
   getLocation() {
-    this.locationStatusService.getLocationStatus().subscribe(l => this.status = l);
+    this.LocationService.getLocationStatus().subscribe(l => this.status = l);
   }
 
 }

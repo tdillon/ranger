@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { LatLong } from '../lat-long';
 import { DataService } from '../data.service';
-import { LocationStatusService, LocationStatusData } from '../location-status.service';
+import { LocationService, LocationStatusData } from '../location.service';
 import { Utilities } from '../utilities';
 
 @Component({
@@ -21,7 +21,7 @@ export class PlotBarComponent implements AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private locationStatusService: LocationStatusService
+    private LocationService: LocationService
   ) { }
 
   ngAfterViewInit() {
@@ -45,7 +45,7 @@ export class PlotBarComponent implements AfterViewInit {
   }
 
   getData() {
-    this.locationStatusService.getLocationStatus().subscribe(s => {
+    this.LocationService.getLocationStatus().subscribe(s => {
       this.status = s;
       this.draw();
     });
