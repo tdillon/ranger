@@ -4,7 +4,7 @@ import { Utilities } from '../utilities';
 import { LatLong } from '../lat-long';
 import { LogService } from '../log.service';
 import { DataService } from '../data.service';
-import { LocationService } from '../location.service';
+import { LocationStatusService, LocationStatusData } from '../location-status.service';
 
 @Component({
   selector: 'app-target-list',
@@ -14,19 +14,22 @@ import { LocationService } from '../location.service';
 export class TargetListComponent implements OnInit {
 
   targets: Array<LatLong & { distanceToBase: number, distanceToCurrent: number }> = [];
+  private status: LocationStatusData;
 
   constructor(
     private dataService: DataService,
-    private locationService: LocationService,
+    private locationStatusService: LocationStatusService,
     private logService: LogService
   ) {
     this.logService.info('TargetListComponent constructor');
   }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe(l => {
+    this.locationStatusService.getLocationStatus().subscribe(s => {
+      this.status = s;
+      console.log('getLocationStatus', this.status);
       this.targets.forEach(t =>
-        t.distanceToCurrent = Utilities.getDistance(t, new LatLong(l.coords))
+        t.distanceToCurrent = Utilities.getDistance(t, new LatLong(s.position.coords))
       );
     });
 
@@ -37,11 +40,12 @@ export class TargetListComponent implements OnInit {
     });
 
     this.dataService.getTargets().subscribe(targets => {
+      console.log('getTarget', this.status);
       this.targets = targets.map(t => {
         return {
           ...t,
           distanceToBase: Utilities.getDistance(t, this.dataService.currentBase),
-          distanceToCurrent: Utilities.getDistance(t, new LatLong(this.locationService.currentLocation.coords))
+          distanceToCurrent: this.status.position ? Utilities.getDistance(t, new LatLong(this.status.position.coords)) : null
         };
       });
     });

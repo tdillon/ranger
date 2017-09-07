@@ -30,8 +30,7 @@ export class TargetAdderComponent implements OnInit {
   }
 
   addTarget() {
-    // TODO
-    // this.dataService.addTarget(new LatLong(this.locationService.currentLocation.coords));
+    this.dataService.addTarget(new LatLong(this.status.position.coords));
   }
 
   getLocation() {

@@ -1,33 +1,3 @@
-<ng-container *ngIf="location">
-  <div>
-    <b>Seconds since fix</b> TODO
-  </div>
-  <div>
-    <b>Last Fix</b> {{location.timestamp}}
-  </div>
-  <div>
-    <b>Accuracy</b> {{location.coords.accuracy}}
-  </div>
-  <div>
-    <b>Altitude</b> {{location.coords.altitude}}
-  </div>
-  <div>
-    <b>Altitude Accuracy</b> {{location.coords.altitudeAccuracy}}
-  </div>
-  <div>
-    <b>Heading</b> {{location.coords.heading}}
-  </div>
-  <div>
-    <b>Latitude</b> {{location.coords.latitude}}
-  </div>
-  <div>
-    <b>Longitude</b> {{location.coords.longitude}}
-  </div>
-  <div>
-    <b>Speed</b> {{location.coords.speed}}
-  </div>
-</ng-container>
-<hr>
 <ng-container *ngIf="status && status.position">
   <div>
     <b>Last Fix</b> {{status.position.timestamp}}

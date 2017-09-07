@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LocationService } from '../location.service';
 import { LogService } from '../log.service';
 import { LocationStatusService, LocationStatusData } from '../location-status.service';
 
@@ -15,7 +14,6 @@ export class GPSDataComponent implements OnInit {
   status: LocationStatusData;
 
   constructor(
-    private locationService: LocationService,
     private logService: LogService,
     private locationStatusService: LocationStatusService
   ) {
@@ -23,7 +21,6 @@ export class GPSDataComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.locationService.getLocation().subscribe(l => this.location = l);
     this.locationStatusService.getLocationStatus().subscribe(s => this.status = s);
   }
 

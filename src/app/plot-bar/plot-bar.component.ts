@@ -2,7 +2,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { LatLong } from '../lat-long';
 import { DataService } from '../data.service';
-import { LocationService } from '../location.service';
+import { LocationStatusService, LocationStatusData } from '../location-status.service';
 import { Utilities } from '../utilities';
 
 @Component({
@@ -13,12 +13,16 @@ import { Utilities } from '../utilities';
 export class PlotBarComponent implements AfterViewInit {
 
   targets: Array<LatLong & { distance: number }>;
+  private status: LocationStatusData;
 
   @ViewChild('canvas') private canvasElementRef: ElementRef;
   canvas: HTMLCanvasElement;
   ctx: CanvasRenderingContext2D;
 
-  constructor(private dataService: DataService, private locationService: LocationService) { }
+  constructor(
+    private dataService: DataService,
+    private locationStatusService: LocationStatusService
+  ) { }
 
   ngAfterViewInit() {
     const dpr = window.devicePixelRatio;
@@ -41,7 +45,8 @@ export class PlotBarComponent implements AfterViewInit {
   }
 
   getData() {
-    this.locationService.getLocation().subscribe(l => {
+    this.locationStatusService.getLocationStatus().subscribe(s => {
+      this.status = s;
       this.draw();
     });
 
@@ -84,9 +89,9 @@ export class PlotBarComponent implements AfterViewInit {
       return (a > b.distance ? a : b.distance);
     }, 0);
 
-    if (this.locationService.currentLocation) {
-      currentLocation = this.locationService.currentLocation;
-      currentDistance = Utilities.getDistance(new LatLong(currentLocation.coords), this.dataService.currentBase);
+    if (this.status && this.status.position) {
+      currentLocation = this.status.position;
+      currentDistance = this.status.dfb;
     }
 
     if (currentDistance > max) {

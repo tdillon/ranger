@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/timer';
 
-import { LocationService } from './location.service';
 import { LogService } from './log.service';
 import { DataService } from './data.service';
 import { Utilities } from './utilities';
@@ -55,21 +54,11 @@ export class LocationStatusService {
   };
 
   constructor(
-    private locationService: LocationService,
     private logService: LogService,
     private dataService: DataService
   ) {
     this.gpsState = new BehaviorSubject(false);
     this.statusSubject = new BehaviorSubject(this.status);
-
-    // this.locationService.getLocation().subscribe(p => {
-    //   if (this.sub) {
-    //     this.sub.unsubscribe();
-    //   }
-    //   this.status.position = p;
-    //   this.updateInfo();
-    //   this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
-    // });
 
     this.dataService.getAccuracy().subscribe(a => {
       this.status.maa = a;
@@ -80,16 +69,6 @@ export class LocationStatusService {
       this.base = b;
       this.updateInfo();
     });
-
-    // this.locationService.getLocationStatus().subscribe(s => {
-    //   if (this.sub) {
-    //     this.sub.unsubscribe();
-    //   }
-
-    //   if (s) {
-    //     this.sub = Observable.timer(1100, 1000).subscribe(() => this.updateInfo());
-    //   }
-    // });
   }
 
   private get hasGeoLocation(): boolean {
@@ -117,12 +96,15 @@ export class LocationStatusService {
   }
 
   /**
-     * Returns true if the app attempts to use GPS, false otherwise.
-     */
+   * Returns true if the app attempts to use GPS, false otherwise.
+   */
   public getLocationStatus() {
     return this.statusSubject.asObservable();
   }
 
+  public get currentLocationStatus() {
+    return this.statusSubject.getValue();
+  }
 
   /**
    * Turns the GPS on (true) or off (false).

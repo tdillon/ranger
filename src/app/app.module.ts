@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { LocationService } from './location.service';
 import { DataService } from './data.service';
-import { TickService} from './tick.service';
-import { LogService} from './log.service';
+import { TickService } from './tick.service';
+import { LogService } from './log.service';
 import { LocationStatusService } from './location-status.service';
 
 import { AppComponent } from './app.component';
@@ -46,7 +45,7 @@ import { ClearDataComponent } from './clear-data/clear-data.component';
     FormsModule,
     HttpModule
   ],
-  providers: [LocationService, DataService, TickService, LogService, LocationStatusService],
+  providers: [DataService, TickService, LogService, LocationStatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
