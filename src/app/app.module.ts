@@ -22,6 +22,7 @@ import { GPSDataComponent } from './gps-data/gps-data.component';
 import { MapComponent } from './map/map.component';
 import { DownloadDataComponent } from './download-data/download-data.component';
 import { ClearDataComponent } from './clear-data/clear-data.component';
+import { GpsStatusComponent } from './gps-status/gps-status.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ClearDataComponent } from './clear-data/clear-data.component';
     GPSDataComponent,
     MapComponent,
     DownloadDataComponent,
-    ClearDataComponent
+    ClearDataComponent,
+    GpsStatusComponent
   ],
   imports: [
     BrowserModule,

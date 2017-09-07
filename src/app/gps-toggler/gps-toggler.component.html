@@ -7,14 +7,3 @@
     <div [class.active]="on" (click)="onChange(true)">1</div>
   </div>
 </div>
-<div id=statuses>
-  <div *ngIf="!status.isAccurate">
-    &#8982; {{status.accuracy}} > {{status.maa}}
-  </div>
-  <div *ngIf="!status.isFresh">
-    &#8987; {{status.sslf}} > 1
-  </div>
-  <div *ngIf="status.isOutOfBounds">
-    &#9678; {{status.dfb}} > 1000
-  </div>
-</div>

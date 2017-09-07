@@ -1,0 +1,16 @@
+<div id=statuses *ngIf="on">
+  <div>GPS is on</div>
+  <div *ngIf="!status.isAccurate">
+    &#8982; {{status.accuracy}} > {{status.maa}}
+  </div>
+  <div *ngIf="!status.isFresh">
+    &#8987; {{status.sslf}} > 1
+  </div>
+  <div *ngIf="status.isOutOfBounds">
+    &#9678; {{status.dfb}} > 1000
+  </div>
+</div>
+
+<div *ngIf="!on">
+  GPS is off
+</div>
