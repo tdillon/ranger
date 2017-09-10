@@ -29,7 +29,7 @@ export class BaseSetterComponent implements OnInit {
     });
   }
 
-  setBase(removeBase: boolean) {
+  setBase(removeBase = false) {
     if (removeBase) {
       this.logService.info('BaseSetterComponent: setBase: Removing base.');
       this.dataService.setBase(null);
