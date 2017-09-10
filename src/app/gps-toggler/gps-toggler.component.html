@@ -1,9 +1,3 @@
-<div id=toggler>
-  <div [class.gpsOn]="on">
-    GPS
-  </div>
-  <div>
-    <div [class.active]="!on" (click)="onChange(false)">0</div>
-    <div [class.active]="on" (click)="onChange(true)">1</div>
-  </div>
-</div>
+<div [class.active]="!on" >OFF</div>
+<div [class.gpsOn]="on">GPS</div>
+<div [class.active]="on">ON</div>

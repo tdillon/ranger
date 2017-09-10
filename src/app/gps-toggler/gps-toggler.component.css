@@ -1,39 +1,40 @@
-:host{
-    display: flex;
-    flex-direction: row;
-    text-align: center;
-    vertical-align: middle;
-    flex-grow: 1;
+:host {
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 3;
+  padding: 8px;
+  background: rgba(0, 153, 204, .3);
+  margin-right: 1em;
+  position: relative;
 }
 
-#toggler > :first-child{
-    padding:.25em;
-    background: #f00;
+:host.gpsOn {
+  background: #09c;
 }
 
-#toggler > :first-child.gpsOn {
-    background: #09c;
+:host> :first-child {
+  text-align: left;
+  flex-grow: 1;
 }
 
-#toggler > :last-child{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+:host> :nth-child(2) {
+  position: absolute;
+  background: #fff;
+  color: #1B5165;
+  font-weight: bold;
+  padding: 8px;
+  top: 0;
+  right: 0;
 }
 
-#toggler > :last-child > div {
-    flex-grow: 1;
-    padding: .25em;
+:host> :nth-child(2).gpsOn {
+  left: 0;
+  color: #09c;
+  right: initial;
 }
 
-#toggler > :last-child > :first-child.active {
-    background: #f00;
-}
-
-#toggler > :last-child > :last-child.active {
-    background: #09c;
-}
-
-#statuses > div {
-    background: darkorange;
+:host> :last-child {
+  text-align: right;
+  flex-grow: 1;
 }
