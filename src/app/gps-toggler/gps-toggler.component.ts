@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, HostBinding } from '@angular/core';
 
 import { LocationService, LocationStatusData } from '../location.service';
 import { LogService } from '../log.service';
@@ -6,12 +6,11 @@ import { LogService } from '../log.service';
 @Component({
   selector: 'app-gps-toggler',
   templateUrl: './gps-toggler.component.html',
-  styleUrls: ['./gps-toggler.component.css'],
-  host: { '[class.gpsOn]': 'on' }
+  styleUrls: ['./gps-toggler.component.css']
 })
 export class GpsTogglerComponent implements OnInit {
 
-  on: boolean;
+  @HostBinding('class.gpsOn') on: boolean;
   status: LocationStatusData;
 
   constructor(

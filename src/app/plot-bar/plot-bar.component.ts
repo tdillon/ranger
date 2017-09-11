@@ -76,29 +76,25 @@ export class PlotBarComponent implements AfterViewInit {
     /** size of square that contains the icons and font */
     const iconSize = 25 * dpr;
     /** padding of the ... */
-    const p = iconSize / 2 + (1 * dpr /* extra brreathing space */);
+    const p = iconSize / 2 + (1 * dpr /* extra breathing space */);
     /** vertical centerline of the canvas */
     const c = this.canvas.height / 2;
     /** width used for stroking lines */
     const lineWidth = 5 * dpr;
 
-    let currentLocation;
-    let currentDistance;
-
-    let max: number = this.targets.reduce((a, b) => {
-      return (a > b.distance ? a : b.distance);
+    // Get the maximum distance between base and each target that isn't > 1000.
+    let max: number = this.targets.reduce((accumulator, currentTarget) => {
+      return (currentTarget.distance > accumulator && currentTarget.distance < 1000 ? currentTarget.distance : accumulator);
     }, 0);
 
-    if (this.status && this.status.position) {
-      currentLocation = this.status.position;
-      currentDistance = this.status.dfb;
+    // If the current distance to base is less than 1000, then set max to that value.
+    if (this.status.dfb > max && this.status.dfb < 1000) {
+      max = this.status.dfb;
     }
 
-    if (currentDistance > max) {
-      max = currentDistance;
-    }
+    // Round max up to nearest 25 that is <= 1000.
+    max = 25 * Math.ceil(max / 25);
 
-    max = Math.min(max, 1000);
     /** ratio of line bar width to maximum distance */
     const wr = (w - 2 * p) / max;
 
@@ -122,10 +118,14 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.font = `${iconSize}px sans-serif`;
     this.ctx.beginPath();
     for (let i = 0, x = 0; i <= Math.floor(max / 25); x = wr * ++i * 25) {
+      if (max > 100 && !(i % 4) || max <= 100) {
+        this.ctx.fillText((i * 25).toString(), p + x, c + iconSize / 2);
+      }
+
+      this.ctx.lineWidth = (lineWidth / ((i % 4) ? 2 : 1));
       this.ctx.moveTo(p + x, c);
       this.ctx.lineTo(p + x, c + iconSize / 2);
       this.ctx.stroke();
-      this.ctx.fillText((i * 25).toString(), p + x, c + iconSize / 2);
     }
     this.ctx.closePath();
 
@@ -135,7 +135,7 @@ export class PlotBarComponent implements AfterViewInit {
     }
 
     // Current distance
-    this.drawMarker(iconSize + 5 * dpr, '#09c', p + currentDistance * wr, c - lineWidth);
+    this.drawMarker(iconSize + 5 * dpr, '#09c', p + this.status.dfb * wr, c - lineWidth);
   }
 
   /**
