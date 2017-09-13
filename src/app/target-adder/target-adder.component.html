@@ -1,5 +1,5 @@
 <input
-  [disabled]="!(status.isAccurate && status.isFresh && !status.isOutOfBounds)"
+  [disabled]="!(gpsOn && status.isAccurate && status.isFresh && !status.isOutOfBounds)"
   value="&#8982; Add"
   type=button
   (click)="addTarget()">

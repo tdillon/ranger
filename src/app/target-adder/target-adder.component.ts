@@ -13,28 +13,21 @@ import { LocationStatusData, LocationService } from '../location.service';
 export class TargetAdderComponent implements OnInit {
 
   public status: LocationStatusData;
-  distance: number;
-  accuracy: number;
-  bestAccuracy: number;
-  lastMS: number = Date.now();
-  secondsOld: number = Number.MAX_SAFE_INTEGER;
+  public gpsOn = false;
 
   constructor(
-    private LocationService: LocationService,
+    private locationService: LocationService,
     private dataService: DataService,
     private logService: LogService
   ) { }
 
   ngOnInit() {
-    this.getLocation();
+    this.locationService.getLocationStatus().subscribe(l => this.status = l);
+    this.locationService.getGPSState().subscribe(s => this.gpsOn = s);
   }
 
   addTarget() {
     this.dataService.addTarget(new LatLong(this.status.position.coords));
-  }
-
-  getLocation() {
-    this.LocationService.getLocationStatus().subscribe(l => this.status = l);
   }
 
 }

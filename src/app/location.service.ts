@@ -89,14 +89,14 @@ export class LocationService {
   }
 
   /**
-   * While GPS is on, emits a LocationStatusData object approximately every second.
+   * Returns true if the app attempts to use GPS, false otherwise.
    */
   public getGPSState() {
     return this.gpsState.asObservable();
   }
 
   /**
-   * Returns true if the app attempts to use GPS, false otherwise.
+   * While GPS is on, emits a LocationStatusData object approximately every second.
    */
   public getLocationStatus() {
     return this.statusSubject.asObservable();
