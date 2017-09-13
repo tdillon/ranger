@@ -107,7 +107,7 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.strokeStyle = '#fff';
     this.ctx.beginPath();
     this.ctx.moveTo(p - lineWidth / 2, c);
-    this.ctx.lineTo(w - p - lineWidth / 2, c);
+    this.ctx.lineTo(w - p + (lineWidth / (max % 100 ? 4 : 2)), c);
     this.ctx.stroke();
 
     // Base icon
@@ -116,18 +116,17 @@ export class PlotBarComponent implements AfterViewInit {
     // Distance markers and text
     this.ctx.fillStyle = this.ctx.strokeStyle = '#fff';
     this.ctx.font = `${iconSize}px sans-serif`;
-    this.ctx.beginPath();
     for (let i = 0, x = 0; i <= Math.floor(max / 25); x = wr * ++i * 25) {
+      this.ctx.beginPath();
       if (max > 100 && !(i % 4) || max <= 100) {
         this.ctx.fillText((i * 25).toString(), p + x, c + iconSize / 2);
       }
-
+      
       this.ctx.lineWidth = (lineWidth / ((i % 4) ? 2 : 1));
       this.ctx.moveTo(p + x, c);
       this.ctx.lineTo(p + x, c + iconSize / 2);
       this.ctx.stroke();
     }
-    this.ctx.closePath();
 
     // Targets
     for (const t of this.targets) {
