@@ -121,7 +121,7 @@ export class PlotBarComponent implements AfterViewInit {
       if (max > 100 && !(i % 4) || max <= 100) {
         this.ctx.fillText((i * 25).toString(), p + x, c + iconSize / 2);
       }
-      
+
       this.ctx.lineWidth = (lineWidth / ((i % 4) ? 2 : 1));
       this.ctx.moveTo(p + x, c);
       this.ctx.lineTo(p + x, c + iconSize / 2);
