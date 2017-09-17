@@ -18,7 +18,7 @@ export class DistanceDisplayComponent implements AfterViewInit {
   distance: number = null;
 
   constructor(
-    private LocationService: LocationService
+    private locationService: LocationService
   ) {
     this.seven = new Seven();
   }
@@ -38,8 +38,13 @@ export class DistanceDisplayComponent implements AfterViewInit {
     this.canvas.style.width = `${clientWidth}px`;
     this.canvas.style.height = `${this.seven.height / dpr}px`;
 
-    this.LocationService.getLocationStatus().subscribe(l => {
+    this.locationService.getLocationStatus().subscribe(l => {
       this.distance = l.dfb;
+      this.draw();
+    });
+
+    this.locationService.getGPSState().subscribe(s => {
+      this.distance = s ? 0 : null;
       this.draw();
     });
   }
