@@ -15,21 +15,21 @@ export class GpsTogglerComponent implements OnInit {
 
   constructor(
     private logService: LogService,
-    private LocationService: LocationService
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
-    this.LocationService.getGPSState().subscribe(s => {
+    this.locationService.getGPSState().subscribe(s => {
       this.logService.info(`GPSTogglerComponent: ngOnInit: GPS status changed: ${s}`);
       this.on = s;
     });
 
-    this.LocationService.getLocationStatus().subscribe(s => this.status = s);
+    this.locationService.getLocationStatus().subscribe(s => this.status = s);
   }
 
   @HostListener('click') onChange() {
     this.logService.info(`GPSTogglerComponent: onChange: Setting GPS: ${!this.on}`);
-    this.LocationService.setGPS(!this.on);
+    this.locationService.setGPS(!this.on);
   }
 
 }

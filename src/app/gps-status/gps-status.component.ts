@@ -15,12 +15,12 @@ export class GpsStatusComponent implements OnInit {
 
   constructor(
     private logService: LogService,
-    private LocationService: LocationService
+    private locationService: LocationService
   ) { }
 
   ngOnInit() {
-    this.LocationService.getLocationStatus().subscribe(s => this.status = s);
-    this.LocationService.getGPSState().subscribe(s => this.on = s);
+    this.locationService.getLocationStatus().subscribe(s => this.status = s);
+    this.locationService.getGPSState().subscribe(s => this.on = s);
   }
 
 }

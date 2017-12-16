@@ -18,16 +18,15 @@ export class TargetListComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private LocationService: LocationService,
+    private locationService: LocationService,
     private logService: LogService
   ) {
     this.logService.info('TargetListComponent constructor');
   }
 
   ngOnInit() {
-    this.LocationService.getLocationStatus().subscribe(s => {
+    this.locationService.getLocationStatus().subscribe(s => {
       this.status = s;
-      console.log('getLocationStatus', this.status);
       this.targets.forEach(t =>
         t.distanceToCurrent = Utilities.getDistance(t, new LatLong(s.position.coords))
       );
@@ -40,7 +39,6 @@ export class TargetListComponent implements OnInit {
     });
 
     this.dataService.getTargets().subscribe(targets => {
-      console.log('getTarget', this.status);
       this.targets = targets.map(t => {
         return {
           ...t,

@@ -15,13 +15,13 @@ export class GPSDataComponent implements OnInit {
 
   constructor(
     private logService: LogService,
-    private LocationService: LocationService
+    private locationService: LocationService
   ) {
     this.logService.add('GPSDataComponent constructor');
   }
 
   ngOnInit() {
-    this.LocationService.getLocationStatus().subscribe(s => this.status = s);
+    this.locationService.getLocationStatus().subscribe(s => this.status = s);
   }
 
 }
