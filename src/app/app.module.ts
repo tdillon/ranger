@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { DataService } from './data.service';
 import { TickService } from './tick.service';
@@ -24,6 +24,8 @@ import { DownloadDataComponent } from './download-data/download-data.component';
 import { ClearDataComponent } from './clear-data/clear-data.component';
 import { GpsStatusComponent } from './gps-status/gps-status.component';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +46,7 @@ import { GpsStatusComponent } from './gps-status/gps-status.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [DataService, TickService, LogService, LocationService],
   bootstrap: [AppComponent]

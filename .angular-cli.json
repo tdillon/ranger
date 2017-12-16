@@ -3,34 +3,46 @@
   "project": {
     "name": "ranger"
   },
-  "apps": [{
-    "root": "src",
-    "outDir": "dist",
-    "assets": [
-      "assets",
-      "favicon.ico",
-      "manifest.json",
-      "service-worker-registration.js"
-    ],
-    "index": "index.html",
-    "main": "main.ts",
-    "polyfills": "polyfills.ts",
-    "tsconfig": "tsconfig.app.json",
-    "serviceWorker": true,
-    "prefix": "app",
-    "styles": [
-      "styles.css"
-    ],
-    "scripts": [],
-    "environmentSource": "environments/environment.ts",
-    "environments": {
-      "dev": "environments/environment.ts",
-      "prod": "environments/environment.prod.ts"
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico",
+        "manifest.json"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "tsconfig": "tsconfig.app.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "serviceWorker": true
     }
-  }],
-  "lint": [{
-    "project": "src/tsconfig.app.json"
-  }],
+  ],
+  "lint": [
+    {
+      "project": "src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "src/tsconfig.spec.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
   "defaults": {
     "styleExt": "css",
     "component": {}

@@ -27,7 +27,6 @@ export class TargetListComponent implements OnInit {
   ngOnInit() {
     this.LocationService.getLocationStatus().subscribe(s => {
       this.status = s;
-      console.log('getLocationStatus', this.status);
       this.targets.forEach(t =>
         t.distanceToCurrent = Utilities.getDistance(t, new LatLong(s.position.coords))
       );
@@ -40,7 +39,6 @@ export class TargetListComponent implements OnInit {
     });
 
     this.dataService.getTargets().subscribe(targets => {
-      console.log('getTarget', this.status);
       this.targets = targets.map(t => {
         return {
           ...t,
