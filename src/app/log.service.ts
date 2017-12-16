@@ -8,7 +8,7 @@ export interface LogMessage {
   message: string;
   severity: Severity;
   time: Date;
-};
+}
 
 @Injectable()
 export class LogService {

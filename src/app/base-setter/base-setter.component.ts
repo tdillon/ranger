@@ -18,13 +18,13 @@ export class BaseSetterComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private LocationService: LocationService,
+    private locationService: LocationService,
     private logService: LogService
   ) { }
 
   ngOnInit() {
     this.dataService.getBase().subscribe(b => this.base = b);
-    this.LocationService.getLocationStatus().subscribe(s => {
+    this.locationService.getLocationStatus().subscribe(s => {
       this.locationStatus = s;
     });
   }

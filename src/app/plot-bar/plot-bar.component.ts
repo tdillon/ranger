@@ -21,7 +21,7 @@ export class PlotBarComponent implements AfterViewInit {
 
   constructor(
     private dataService: DataService,
-    private LocationService: LocationService
+    private locationService: LocationService
   ) { }
 
   ngAfterViewInit() {
@@ -45,7 +45,7 @@ export class PlotBarComponent implements AfterViewInit {
   }
 
   getData() {
-    this.LocationService.getLocationStatus().subscribe(s => {
+    this.locationService.getLocationStatus().subscribe(s => {
       this.status = s;
       this.draw();
     });
