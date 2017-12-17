@@ -51,32 +51,34 @@ export class DataService {
    */
   setBase(coords: LatLong) {
     if (coords) {
-      localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
+      return localForage.setItem(this.BASE, coords).then(b => this.base.next(b));
     } else {
-      localForage.removeItem(this.BASE).then(() => this.base.next(null));
+      return localForage.removeItem(this.BASE).then(() => this.base.next(null));
     }
   }
 
   getTargets() {
     return this.targetsObservable;
-    // return localForage.getItem(this.TARGETS);
+  }
+
+  setTargets(targets: Array<LatLong>) {
+    return localForage
+      .setItem(this.TARGETS, targets)
+      .then(ta => this.targets.next(ta));
   }
 
   addTarget(coords: LatLong) {
-    // TODO what should I return?
     return localForage
       .getItem(this.TARGETS)
       .then((t: Array<LatLong>) => {
-        if (!t) {
-          t = [];
-        }
+        t = t || [];
         t.push(coords);
-        localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x));  // TODO catch success/error and log it
+        localForage.setItem(this.TARGETS, t).then(x => this.targets.next(x)).then(() => coords);
       });
   }
 
   removeAllTargets() {
-    localForage.removeItem(this.TARGETS).then(x => this.targets.next([]));
+    return localForage.removeItem(this.TARGETS).then(x => this.targets.next([]));
   }
 
   getAccuracy(): Observable<number> {

@@ -20,8 +20,9 @@ export class ClearDataComponent implements OnInit {
     this.dataService.setBase(null);
     this.logService.info(`ClearDataComponent - clear - removed base`);
 
-    this.dataService.removeAllTargets();
-    this.logService.info(`ClearDataComponent - clear - removed all targets`);
+    this.dataService.removeAllTargets().then(() =>
+      this.logService.info(`ClearDataComponent - clear - removed all targets`)
+    );
 
     this.showDelete = false;
   }
