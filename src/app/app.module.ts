@@ -26,6 +26,7 @@ import { GpsStatusComponent } from './gps-status/gps-status.component';
 
 import { environment } from '../environments/environment';
 import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { PlotMapComponent } from './plot-map/plot-map.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { FileUploaderComponent } from './file-uploader/file-uploader.component';
     DownloadDataComponent,
     ClearDataComponent,
     GpsStatusComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    PlotMapComponent
   ],
   imports: [
     BrowserModule,

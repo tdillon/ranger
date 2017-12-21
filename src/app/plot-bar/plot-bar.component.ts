@@ -111,7 +111,7 @@ export class PlotBarComponent implements AfterViewInit {
     this.ctx.stroke();
 
     // Base icon
-    this.drawMarker(iconSize - 5 * dpr, 'rgba(255,255,255,.3)', p, c - lineWidth);
+    Utilities.drawMarker(this.ctx, iconSize - 5 * dpr, 'rgba(255,255,255,.3)', p, c - lineWidth);
 
     // Distance markers and text
     this.ctx.fillStyle = this.ctx.strokeStyle = '#fff';
@@ -130,37 +130,11 @@ export class PlotBarComponent implements AfterViewInit {
 
     // Targets
     for (const t of this.targets) {
-      this.drawMarker(iconSize, 'rgba(255, 255, 255, .6)', p + t.distance * wr, c - lineWidth);
+      Utilities.drawMarker(this.ctx, iconSize, 'rgba(255, 255, 255, .6)', p + t.distance * wr, c - lineWidth);
     }
 
     // Current distance
-    this.drawMarker(iconSize + 5 * dpr, '#09c', p + this.status.dfb * wr, c - lineWidth);
-  }
-
-  /**
-   * Draw a pretty marker.
-   * @param height Overall height of the marker.
-   * @param color Color of the marker.  CSS color string.
-   * @param x X position of the bottom point of the marker.
-   * @param y Y position of the bottom point of the marker.
-   */
-  private drawMarker(height, color, x, y) {
-    const width = height * .7;
-    const r = width / 2;
-    const cx = x;
-    const cy = y - height + r;
-
-    this.ctx.fillStyle = color;
-
-    this.ctx.beginPath();
-
-    this.ctx.arc(cx, cy, r, -Math.PI, 0);
-    this.ctx.quadraticCurveTo(cx + r, cy + r * .7, cx, y);
-    this.ctx.quadraticCurveTo(cx - r, cy + r * .7, cx - r, cy);
-
-    this.ctx.closePath();
-    this.ctx.fill();
-
+    Utilities.drawMarker(this.ctx, iconSize + 5 * dpr, '#09c', p + this.status.dfb * wr, c - lineWidth);
   }
 
 }

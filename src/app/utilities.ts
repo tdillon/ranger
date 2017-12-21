@@ -31,4 +31,30 @@ export class Utilities {
         }
     }
 
+    /**
+     * Draw a pretty marker.
+     * @param ctx Context to draw to.
+     * @param height Overall height of the marker.
+     * @param color Color of the marker.  CSS color string.
+     * @param x X position of the bottom point of the marker.
+     * @param y Y position of the bottom point of the marker.
+     */
+    static drawMarker(ctx: CanvasRenderingContext2D, height: number, color: string, x: number, y: number) {
+        const width = height * .7;
+        const r = width / 2;
+        const cx = x;
+        const cy = y - height + r;
+
+        ctx.fillStyle = color;
+
+        ctx.beginPath();
+
+        ctx.arc(cx, cy, r, -Math.PI, 0);
+        ctx.quadraticCurveTo(cx + r, cy + r * .7, cx, y);
+        ctx.quadraticCurveTo(cx - r, cy + r * .7, cx - r, cy);
+
+        ctx.closePath();
+        ctx.fill();
+    }
+
 }
