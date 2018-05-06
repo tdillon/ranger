@@ -1,3 +1,6 @@
+# Do not commit app icons in src/assets/.  They are generated.
+/src/assets/icon*.png
+
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
@@ -30,17 +33,10 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+yarn-error.log
 testem.log
 /typings
-
-# e2e
-/e2e/*.js
-/e2e/*.map
 
 # System Files
 .DS_Store
 Thumbs.db
-
-
-# Do not commit app icons in src/assets/.  They are generated.
-/src/assets/icon*.png
