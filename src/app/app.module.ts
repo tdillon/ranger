@@ -50,7 +50,7 @@ import { PlotMapComponent } from './plot-map/plot-map.component';
   ],
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ranger/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [DataService, TickService, LogService, LocationService],
   bootstrap: [AppComponent]
