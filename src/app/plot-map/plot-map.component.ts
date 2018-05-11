@@ -65,7 +65,9 @@ export class PlotMapComponent implements AfterViewInit {
     if (!this.targets || this.targets.length === 0) {
       return;
     }
-
+    
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
     const dpr = window.devicePixelRatio;
     /** width of the canvas */
     const w = this.canvas.width;
@@ -79,55 +81,62 @@ export class PlotMapComponent implements AfterViewInit {
     const lineWidth = 5 * dpr;
 
     const base = this.dataService.currentBase;
-    const currentLocation = this.status.position ? this.status.position.coords : null;
+    const currentLocation = this.status.position ? {
+      latitude: this.status.position.coords.latitude,
+      longitude: this.status.position.coords.longitude,
+      distance: Utilities.getDistance(this.status.position.coords, this.dataService.currentBase),
+      x:0,
+      y:0 
+    } : null;
+    
+    const maxDistance = this.targets.reduce((accum, cur) => Math.max(cur.distance, accum), currentLocation ? currentLocation.distance : Number.MIN_SAFE_INTEGER);
+    const pxPerDistance = w / 2 / maxDistance;
 
-    const minLat = this.targets.reduce((accumulator, currentTarget) =>
-      Math.min(accumulator, currentTarget.latitude),
-      Math.min(currentLocation ? currentLocation.latitude : Number.MAX_SAFE_INTEGER, base.latitude));
-    const minLon = this.targets.reduce((accumulator, currentTarget) =>
-      Math.min(accumulator, currentTarget.longitude),
-      Math.min(currentLocation ? currentLocation.longitude : Number.MAX_SAFE_INTEGER, base.longitude));
-    const maxLat = this.targets.reduce((accumulator, currentTarget) =>
-      Math.max(accumulator, currentTarget.latitude),
-      Math.max(currentLocation ? currentLocation.latitude : Number.MIN_SAFE_INTEGER, base.latitude));
-    const maxLon = this.targets.reduce((accumulator, currentTarget) =>
-      Math.max(accumulator, currentTarget.longitude),
-      Math.max(currentLocation ? currentLocation.longitude : Number.MIN_SAFE_INTEGER, base.longitude));
-    const latDiff = maxLat - minLat;
-    const lonDiff = maxLon - minLon;
-    const isLatDiffBigger = latDiff > lonDiff;
-    const ratio = (w - iconSize) / (isLatDiffBigger ? latDiff : lonDiff);
-    const leftPadding = (w - iconSize / 2 - lonDiff * ratio) / 2;
+    if (currentLocation){
+      const a = Math.atan2(currentLocation.longitude - base.longitude, currentLocation.latitude - base.latitude) + Math.PI;
+      currentLocation.x = w/2 - pxPerDistance * currentLocation.distance * Math.sin(a);
+      currentLocation.y =  w/2 + pxPerDistance* currentLocation.distance * Math.cos(a);
+    }
 
-    console.log(`
-minLat: ${minLat}
-maxLat: ${maxLat}
-latDiff: ${latDiff}
-minLong: ${minLon}
-maxLon: ${maxLon}
-lonDiff: ${lonDiff}
-isLatDiffBigger: ${isLatDiffBigger}
-canvas side: ${w}
-iconSize: ${iconSize}
-ratio: ${ratio}
-`);
+    const plotTargets = this.targets.map(t => {
+      const a = Math.atan2(t.longitude - base.longitude, t.latitude - base.latitude) + Math.PI;
+      return {...t,  x: w/2 - pxPerDistance * t.distance * Math.sin(a) ,y: w/2 + pxPerDistance* t.distance * Math.cos(a)};
+    });
 
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+    for (let i = 25; i <= maxDistance; i+=25) {
+      this.ctx.lineWidth = (i % 100 ? 1 : 2) * dpr;
+      this.ctx.strokeStyle = `rgba(255,255,255,.6)`;
+      this.ctx.beginPath();
+      this.ctx.arc(w/2,w/2, i * pxPerDistance, 0 , Math.PI * 2);
+      this.ctx.stroke();
+    }
+    
+    
     // TODO My markers appear to leave padding on the bottom and right sides of the canvas.  Why?
 
     // TODO Add option to set the origin at the current location
 
     // TODO Add concentric circles with distance text.
-    // Orign of circle should be base or current, based on some option.
-
+    // Origin of circle should be base or current, based on some option.
+    
     // Draw base marker
     Utilities.drawMarker(
       this.ctx,
       iconSize,
       '#00DB4A',
-      leftPadding + (base.longitude - minLon) * ratio,
-      w - (base.latitude - minLat) * ratio
+      w/2,
+      w/2
+    );
+    
+    // Draw target markers
+    plotTargets.forEach(t =>
+      Utilities.drawMarker(
+        this.ctx,
+        iconSize,
+        '#fff',
+        t.x,
+        t.y
+      )
     );
 
     // Draw current location marker
@@ -136,22 +145,9 @@ ratio: ${ratio}
         this.ctx,
         iconSize,
         '#09c',
-        leftPadding + (currentLocation.longitude - minLon) * ratio,
-        w - (currentLocation.latitude - minLat) * ratio
+        currentLocation.x,
+        currentLocation.y
       );
     }
-
-    // Draw target markers
-    this.targets.forEach(t =>
-      Utilities.drawMarker(
-        this.ctx,
-        iconSize,
-        '#fff',
-        leftPadding + (t.longitude - minLon) * ratio,
-        w - (t.latitude - minLat) * ratio
-      )
-    );
-
-
   }
 }
