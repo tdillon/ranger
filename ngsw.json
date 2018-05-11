@@ -1,0 +1,71 @@
+{
+  "configVersion": 1,
+  "index": "/ranger/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "/ranger/favicon.ico",
+        "/ranger/index.html",
+        "/ranger/main.5ad4267f2fbf9e72b017.js",
+        "/ranger/polyfills.2903ad11212d7d797800.js",
+        "/ranger/runtime.6afe30102d8fe7337431.js",
+        "/ranger/styles.fdda4b61ef17e82f4aed.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "/ranger/assets/icon-128x128.png",
+        "/ranger/assets/icon-144x144.png",
+        "/ranger/assets/icon-152x152.png",
+        "/ranger/assets/icon-192x192.png",
+        "/ranger/assets/icon-384x384.png",
+        "/ranger/assets/icon-512x512.png",
+        "/ranger/assets/icon-72x72.png",
+        "/ranger/assets/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/ranger/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
+    "/ranger/assets/icon-128x128.png": "45cd63cb202d1582a659ac80c43fbab966fc2004",
+    "/ranger/index.html": "87043695dfd1c916cdb3ff9068ae32073544097e",
+    "/ranger/assets/icon-144x144.png": "b691c9bbf424a9330f753ef6aaa7f1f2b8d512e5",
+    "/ranger/main.5ad4267f2fbf9e72b017.js": "0d604639a95021ee598c6615136ba8eaaf03e719",
+    "/ranger/assets/icon-152x152.png": "a0082a3660755f1107c5b99608ab1bab44088fec",
+    "/ranger/polyfills.2903ad11212d7d797800.js": "193f6d7b77c2bce633da2f543082303b4f32d7ed",
+    "/ranger/assets/icon-192x192.png": "8ec1e9fd8b33e8cf9012b17a72cd32088db243c4",
+    "/ranger/runtime.6afe30102d8fe7337431.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
+    "/ranger/assets/icon-384x384.png": "52fd890f0f5a81644bb0c2e1a6ff6c89116a28ad",
+    "/ranger/styles.fdda4b61ef17e82f4aed.css": "f45f4ae8c8903c0e634ef9d94d07c406c6d42b1c",
+    "/ranger/assets/icon-512x512.png": "dd0509507be6ab5e674618c30c412d4c145702fd",
+    "/ranger/assets/icon-72x72.png": "3b0daee9e2bc9b82a64a3d1a897329ef17bbbfc6",
+    "/ranger/assets/icon-96x96.png": "ae1a4da0ea30cfc9b01a7a641e30d84150986ee9"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+    }
+  ]
+}
