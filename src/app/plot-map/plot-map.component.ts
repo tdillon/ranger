@@ -65,9 +65,9 @@ export class PlotMapComponent implements AfterViewInit {
     if (!this.targets || this.targets.length === 0) {
       return;
     }
-    
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
+
     const dpr = window.devicePixelRatio;
     /** width of the canvas */
     const w = this.canvas.width;
@@ -85,49 +85,50 @@ export class PlotMapComponent implements AfterViewInit {
       latitude: this.status.position.coords.latitude,
       longitude: this.status.position.coords.longitude,
       distance: Utilities.getDistance(this.status.position.coords, this.dataService.currentBase),
-      x:0,
-      y:0 
+      x: 0,
+      y: 0
     } : null;
-    
-    const maxDistance = this.targets.reduce((accum, cur) => Math.max(cur.distance, accum), currentLocation ? currentLocation.distance : Number.MIN_SAFE_INTEGER);
+
+    const maxDistance = this.targets.reduce((accum, cur) =>
+      Math.max(cur.distance, accum), currentLocation ? currentLocation.distance : Number.MIN_SAFE_INTEGER);
     const pxPerDistance = w / 2 / maxDistance;
 
-    if (currentLocation){
+    if (currentLocation) {
       const a = Math.atan2(currentLocation.longitude - base.longitude, currentLocation.latitude - base.latitude) + Math.PI;
-      currentLocation.x = w/2 - pxPerDistance * currentLocation.distance * Math.sin(a);
-      currentLocation.y =  w/2 + pxPerDistance* currentLocation.distance * Math.cos(a);
+      currentLocation.x = w / 2 - pxPerDistance * currentLocation.distance * Math.sin(a);
+      currentLocation.y = w / 2 + pxPerDistance * currentLocation.distance * Math.cos(a);
     }
 
     const plotTargets = this.targets.map(t => {
       const a = Math.atan2(t.longitude - base.longitude, t.latitude - base.latitude) + Math.PI;
-      return {...t,  x: w/2 - pxPerDistance * t.distance * Math.sin(a) ,y: w/2 + pxPerDistance* t.distance * Math.cos(a)};
+      return { ...t, x: w / 2 - pxPerDistance * t.distance * Math.sin(a), y: w / 2 + pxPerDistance * t.distance * Math.cos(a) };
     });
 
-    for (let i = 25; i <= maxDistance; i+=25) {
+    for (let i = 25; i <= maxDistance; i += 25) {
       this.ctx.lineWidth = (i % 100 ? 1 : 2) * dpr;
       this.ctx.strokeStyle = `rgba(255,255,255,.6)`;
       this.ctx.beginPath();
-      this.ctx.arc(w/2,w/2, i * pxPerDistance, 0 , Math.PI * 2);
+      this.ctx.arc(w / 2, w / 2, i * pxPerDistance, 0, Math.PI * 2);
       this.ctx.stroke();
     }
-    
-    
+
+
     // TODO My markers appear to leave padding on the bottom and right sides of the canvas.  Why?
 
     // TODO Add option to set the origin at the current location
 
     // TODO Add concentric circles with distance text.
     // Origin of circle should be base or current, based on some option.
-    
+
     // Draw base marker
     Utilities.drawMarker(
       this.ctx,
       iconSize,
       '#00DB4A',
-      w/2,
-      w/2
+      w / 2,
+      w / 2
     );
-    
+
     // Draw target markers
     plotTargets.forEach(t =>
       Utilities.drawMarker(
